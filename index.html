@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple ChatBot Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* Chat container */
+        #chat-container {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            background-color: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: none; /* Hidden until we trigger it */
+        }
+        /* Chat header */
+        #chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
+        /* Chat body */
+        #chat-body {
+            padding: 10px;
+            height: 200px;
+            overflow-y: scroll;
+            border-bottom: 1px solid #ddd;
+        }
+        /* Input area */
+        #chat-input {
+            padding: 10px;
+            border: none;
+            border-radius: 0 0 10px 10px;
+            width: calc(100% - 20px);
+            box-sizing: border-box;
+        }
+        #chat-input input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #chat-input button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-header">
+            Chat with us!
+        </div>
+        <div id="chat-body">
+            <div id="messages"></div>
+        </div>
+        <div id="chat-input">
+            <input type="text" id="chat-text" placeholder="Type your message here..." />
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Show the chat widget after the page loads
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('chat-container').style.display = 'block';
+                document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> Welcome to our website! How can I assist you today?</p>';
+            }, 3000); // Show chat 3 seconds after page load
+        };
+
+        // Function to send message
+        document.getElementById('send-btn').addEventListener('click', function() {
+            let userMessage = document.getElementById('chat-text').value;
+            if (userMessage) {
+                document.getElementById('messages').innerHTML += '<p><strong>You:</strong> ' + userMessage + '</p>';
+                document.getElementById('chat-text').value = '';
+
+                // Here you can integrate OpenAI API or a simple response simulation
+                setTimeout(function() {
+                    document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> I am still learning! Thank you for your message.</p>';
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
