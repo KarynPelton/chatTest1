@@ -1,5 +1,5 @@
+<! –– this is the integrated chatgpt code to use ––>
 
-<! –– this is a page I copied from chatGPT to have a pop up open after 5 seconds on a website ––>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +11,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-        }
-
-        p {
-            font-size: 200%;
-            font-style: italic;
-            font-weight: bold;
-            color: blue;
         }
         /* Chat container */
         #chat-container {
@@ -71,7 +64,9 @@
     </style>
 </head>
 <body>
-    <p>This is the page where the chat pop up initiates from </p>
+
+    <p>This is the website where the chat bot opens up, I am trying to integrated it with chatGPT</p>
+    
     <div id="chat-container">
         <div id="chat-header">
             Chat with us!
@@ -86,25 +81,46 @@
     </div>
 
     <script>
+        const apiKey = 'sk-QPJhvw7w_S7B10K9A_oEVhLqvNRxDOLcpRulQl6A1bT3BlbkFJiGmg9lXbw71AQaKphOTYWamuxaOlZdE33J-EQ6QbMA';  // Replace with your OpenAI API key
+
         // Show the chat widget after the page loads
         window.onload = function() {
             setTimeout(function() {
                 document.getElementById('chat-container').style.display = 'block';
-                document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> Hello there. How can I assist you today?</p>';
+                document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> Welcome to our website! How can I assist you today?</p>';
             }, 3000); // Show chat 3 seconds after page load
         };
 
-        // Function to send message
-        document.getElementById('send-btn').addEventListener('click', function() {
+        // Function to get ChatGPT response
+        async function getChatGPTResponse(message) {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: "gpt-4",
+                    messages: [{"role": "user", "content": message}]
+                })
+            });
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+
+        // Event listener to handle message sending
+        document.getElementById('send-btn').addEventListener('click', async function() {
             let userMessage = document.getElementById('chat-text').value;
             if (userMessage) {
                 document.getElementById('messages').innerHTML += '<p><strong>You:</strong> ' + userMessage + '</p>';
                 document.getElementById('chat-text').value = '';
 
-                // Here you can integrate OpenAI API or a simple response simulation
-                setTimeout(function() {
-                    document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong>Thank you for your message.  I am not yet hooked up to chatGPT so have nothing to say</p>';
-                }, 1000);
+                // Get ChatGPT response
+                const botResponse = await getChatGPTResponse(userMessage);
+
+                // Display bot's response
+                document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> ' + botResponse + '</p>';
             }
         });
     </script>
