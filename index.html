@@ -17,7 +17,7 @@
             font-size: 200%;
             font-style: italic;
             font-weight: bold;
-            color: red;
+            color: blue;
         }
         /* Chat container */
         #chat-container {
@@ -90,7 +90,7 @@
         window.onload = function() {
             setTimeout(function() {
                 document.getElementById('chat-container').style.display = 'block';
-                document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> Welcome to our website! How can I assist you today?</p>';
+                document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> Hello there. How can I assist you today?</p>';
             }, 3000); // Show chat 3 seconds after page load
         };
 
@@ -103,7 +103,7 @@
 
                 // Here you can integrate OpenAI API or a simple response simulation
                 setTimeout(function() {
-                    document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> I am still learning! Thank you for your message.</p>';
+                    document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong>Thank you for your message.  I am not yet hooked up to chatGPT so have nothing to say</p>';
                 }, 1000);
             }
         });
