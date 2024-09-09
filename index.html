@@ -76,7 +76,8 @@
     </div>
 
     <script>
-        const apiKey = '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';  // Replace with your OpenAI API key
+        // Replace with your Project-specific OpenAI API key
+        const apiKey = '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';  // Use your actual key
 
         // Show the chat widget after the page loads
         window.onload = function() {
@@ -93,10 +94,10 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`  // Correctly formatted Authorization header
+                        'Authorization': `Bearer ${apiKey}`  // Correct Authorization header with Project API Key
                     },
                     body: JSON.stringify({
-                        model: "gpt-4",  // Or use "gpt-3.5-turbo" if you do not have access to GPT-4
+                        model: "gpt-3.5-turbo",  // Or use "gpt-4" if you have access to it
                         messages: [{"role": "user", "content": message}]
                     })
                 });
