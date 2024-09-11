@@ -33,13 +33,20 @@
             position: absolute; /* Absolutely position the circle */
             top: 40px; /* Keep the circle fixed in place */
             transition: background-color 6s ease-in-out, opacity 1s ease-in-out, transform 6s ease-in-out, border-radius 6s ease-in-out, border 6s ease-in-out;
+            animation: blink 1s infinite; /* Blink animation */
         }
 
         #circle.square {
             border-radius: 0;
             transform: scale(10);
-            border: 3px solid red; /* Red border when transformed */
+            border: 2px solid red; /* Red border (2 pixels) when transformed */
             background-color: #001f3f; /* Dark navy blue when transformed */
+        }
+
+        @keyframes blink {
+            0% { background-color: white; }
+            50% { background-color: black; }
+            100% { background-color: white; }
         }
 
         #map-marker {
@@ -71,13 +78,20 @@
                 mapMarker.style.opacity = 1;
             }, 2000);
             
-            // Function to hide the image and transform the circle
+            // Function to hide the image, stop the blinking, and transform the circle
             function hideMarkerAndTransform() {
                 let mapMarker = document.getElementById('map-marker');
                 let circle = document.getElementById('circle');
                 
-                mapMarker.classList.add('hidden'); // Hide the image
-                circle.classList.add('square');    // Start circle to square transformation
+                // Stop blinking and set circle to white
+                circle.style.animation = 'none';
+                circle.style.backgroundColor = 'white';
+
+                // Hide the image and start the transition
+                mapMarker.classList.add('hidden');
+                setTimeout(() => {
+                    circle.classList.add('square'); // Start circle to square transformation after the color turns white
+                }, 50); // Slight delay to ensure the color change occurs first
             }
 
             // Add click event listener to both the circle and the image
