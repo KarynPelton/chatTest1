@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kpel</title>
+    <title>Airplane and Clouds Animation</title>
     <style>
         body {
             margin: 0;
@@ -79,19 +79,19 @@
         /* Map Marker image (hidden initially) */
         .map-marker {
             position: absolute;
-            top: 20%; /* Same level as the top cloud */
+            top: 25%; /* Adjusted to avoid text overlap */
             left: 50%;
-            transform: translateX(-50%) scale(1.6); /* Initially 60% larger */
+            transform: translateX(-50%) scale(0); /* Initially invisible */
             width: 50px; /* Adjust marker size */
             cursor: pointer;
             visibility: hidden; /* Initially hidden */
-            transition: transform 1s ease-out; /* Zoom in transition, twice as fast */
+            transition: transform 2s ease-out; /* Zoom in transition, twice as slow */
         }
 
         /* Hidden text for "The Future is Here" */
         .text {
             position: absolute;
-            top: 30%; /* Below the MapMarker */
+            top: 40%; /* Positioned below the MapMarker to avoid overlap */
             left: 50%;
             transform: translateX(-50%);
             font-size: 16pt; /* Font size of the text reduced to 16pt */
@@ -104,7 +104,7 @@
         /* Keyframes for sliding all the way off to the left, now 2x slower */
         @keyframes slideOffLeft {
             0% {
-                transform: translateX(-50%) scale(1.6); /* Start in the center with 60% larger size */
+                transform: translateX(-50%) scale(1.6); /* Start in the center */
             }
             100% {
                 transform: translateX(-200vw) scale(1.6); /* Slide completely off the viewport to the left */
@@ -113,7 +113,7 @@
 
         /* Slow down the marker's exit speed */
         .map-marker.slow-slide {
-            animation-duration: 2s; /* Half as fast as before */
+            animation-duration: 4s; /* Twice as slow */
         }
     </style>
 </head>
@@ -149,16 +149,16 @@
             // Show the MapMarker after 3 seconds
             setTimeout(() => {
                 mapMarker.style.visibility = 'visible';
-                mapMarker.style.transform = 'translateX(-50%) scale(1.6)'; // Initially 60% larger
+                mapMarker.style.transform = 'translateX(-50%) scale(1.6)'; // Zoom in, twice as slow
             }, 3000);
 
             // Handle clicks on the map marker
             let isTextVisible = false;
             mapMarker.addEventListener('click', function () {
                 if (isTextVisible) {
-                    // Make the map marker slide all the way off to the left at half speed
+                    // Make the map marker slide all the way off to the left, twice as slow
                     mapMarker.classList.add('slow-slide');
-                    mapMarker.style.animation = 'slideOffLeft 2s forwards'; // Slow down the slide
+                    mapMarker.style.animation = 'slideOffLeft 4s forwards'; // Slow down the slide
                     text.style.visibility = 'hidden'; // Hide text
                 } else {
                     // Show the text
