@@ -13,22 +13,22 @@
 
         .airplane {
             position: absolute;
-            width: 200px; /* Airplane is twice as large (200px instead of 100px) */
+            width: 400px; /* Airplane is now twice as large (400px instead of 200px) */
             top: 50%; /* Airplane in the middle of the frame */
-            left: -300px; /* Start airplane offscreen to the left, adjusted for larger size */
+            left: -600px; /* Start airplane offscreen to the left, adjusted for larger size */
             animation: fly 10s linear infinite; /* Infinite loop for smooth flying */
         }
 
         .cloud1, .cloud2 {
             position: absolute;
-            width: 300px; /* Clouds are twice as large (300px instead of 150px) */
+            width: 300px; /* Clouds size remains the same */
         }
 
         /* Cloud1 - Top cloud, moving right to left */
         .cloud1 {
             top: 20%; /* Top third of the screen */
-            right: -400px; /* Start offscreen from the right, adjusted for larger size */
-            animation: cloud1Move 15s linear infinite; /* Slower movement */
+            right: -400px; /* Start offscreen from the right */
+            animation: cloud1Move 15s linear infinite;
         }
 
         @keyframes cloud1Move {
@@ -43,7 +43,7 @@
         /* Cloud2 - Bottom cloud, moving left to right */
         .cloud2 {
             top: 70%; /* Bottom third of the screen */
-            left: -400px; /* Start offscreen from the left, adjusted for larger size */
+            left: -400px; /* Start offscreen from the left */
             animation: cloud2Move 30s linear infinite; /* 50% slower movement */
         }
 
@@ -59,7 +59,7 @@
         /* Airplane animation */
         @keyframes fly {
             0% {
-                left: -300px; /* Start off-screen, adjusted for larger size */
+                left: -600px; /* Start off-screen, adjusted for larger size */
             }
             50% {
                 left: 50%; /* When the airplane is at the middle of the screen */
@@ -77,10 +77,10 @@
         /* Text reveal animation */
         .text {
             position: absolute;
-            top: 55%; /* Slightly below the airplane */
+            top: 60%; /* Slightly below the airplane */
             width: 100%;
             text-align: center;
-            font-size: 200px; /* Same height as the airplane */
+            font-size: 20px; /* Much smaller text (20px) */
             color: rgba(75, 0, 130, 0); /* Dark purple (hidden initially) */
             font-weight: bold;
             animation: revealText 5s forwards;
