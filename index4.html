@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Circle to Square Transition</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #add8e6; /* Light blue background */
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100px; /* Fixed height to prevent jump */
+        }
+
+        #circle {
+            width: 15px; /* 50% smaller circle */
+            height: 15px;
+            background-color: white; /* Remains white */
+            border-radius: 50%;
+            opacity: 0;
+            position: absolute; /* Absolutely position the circle */
+            top: 40px; /* Keep the circle fixed in place */
+            transition: transform 2s ease-in-out, border-radius 2s ease-in-out, opacity 2s ease-in-out, background-color 2s ease-in-out;
+            animation: scale 1s infinite; /* Grow animation */
+        }
+
+        #circle.square {
+            border-radius: 0;
+            transform: scale(10) rotate(360deg); /* Rotate the square during transformation */
+            background-color: #001f3f; /* Dark navy blue when transformed */
+            opacity: 1;
+            border: 0.5px solid red; /* Thin red border */
+        }
+
+        @keyframes scale {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5); } /* Grow by 50% */
+            100% { transform: scale(1); }
+        }
+
+        #map-marker {
+            width: 50px; /* Adjust the size of the image if needed */
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            top: -50px; /* Position image above the circle */
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="map-marker" src="MapMarker.png" alt="Map Marker">
+        <div id="circle"></div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Delay the fade-in effect for both the circle and the image
+            setTimeout(function() {
+                let circle = document.getElementById('circle');
+                let mapMarker = document.getElementById('map-marker');
+                circle.style.opacity = 1;
+                mapMarker.style.opacity = 1;
+            }, 2000);
+            
+            // Function to hide the image, stop the growing animation, and transform the circle
+            function hideMarkerAndTransform() {
+                let mapMarker = document.getElementById('map-marker');
+                let circle = document.getElementById('circle');
+                
+                // Stop the growing animation and set circle to white
+                circle.style.animation = 'none';
+                circle.style.backgroundColor = 'white';
+
+                // Hide the image and start the transition
+                mapMarker.classList.add('hidden');
+                setTimeout(() => {
+                    circle.classList.add('square'); // Start circle to square transformation
+                }, 50); // Slight delay to ensure the circle stops growing
+            }
+
+            // Add click event listener to both the circle and the image
+            document.getElementById('circle').onclick = hideMarkerAndTransform;
+            document.getElementById('map-marker').onclick = hideMarkerAndTransform;
+        }
+    </script>
+</body>
+</html>
