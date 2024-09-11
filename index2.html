@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K</title>
+    <title>Ain</title>
     <style>
         body {
             margin: 0;
@@ -106,14 +106,13 @@
             visibility: hidden; /* Hidden initially */
         }
 
-        /* Keyframes for zooming off to the bottom center */
-        @keyframes zoomOffScreen {
+        /* Keyframes for sliding off to the left */
+        @keyframes slideOffLeft {
             0% {
-                transform: translateX(-50%) scale(1); /* Normal size */
+                transform: translateX(-50%) scale(1); /* Start in the center */
             }
             100% {
-                transform: translateX(-50%) translateY(400px) scale(2); /* Zoom forward and slide to the bottom */
-                opacity: 0; /* Fade out as it zooms */
+                transform: translateX(-200%) scale(1); /* Slide to the left, off-screen */
             }
         }
     </style>
@@ -144,24 +143,21 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const airplane = document.querySelector('.airplane');
             const mapMarker = document.getElementById('mapMarker');
             const text = document.getElementById('text');
 
-            // Show the MapMarker when airplane reaches the middle
-            airplane.addEventListener('animationiteration', function () {
-                setTimeout(() => {
-                    mapMarker.style.visibility = 'visible';
-                    mapMarker.style.transform = 'translateX(-50%) scale(1)'; // Zoom in twice as fast
-                }, 5000); // Trigger marker after 5 seconds (when the plane is at the middle)
-            });
+            // Show the MapMarker after 3 seconds
+            setTimeout(() => {
+                mapMarker.style.visibility = 'visible';
+                mapMarker.style.transform = 'translateX(-50%) scale(1)'; // Zoom in
+            }, 3000);
 
             // Handle clicks on the map marker
             let isTextVisible = false;
             mapMarker.addEventListener('click', function () {
                 if (isTextVisible) {
-                    // Make the map marker zoom forward and slide to the middle bottom
-                    mapMarker.style.animation = 'zoomOffScreen 1s forwards'; // Zoom off twice as fast
+                    // Make the map marker slide off to the left
+                    mapMarker.style.animation = 'slideOffLeft 1s forwards';
                     text.style.visibility = 'hidden'; // Hide text
                 } else {
                     // Show the text
