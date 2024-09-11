@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle to Square Transition</title>
+    <title>Circle to Square with Image</title>
     <style>
         body {
             margin: 0;
@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;
             background-color: white;
+            position: relative;
         }
 
         #circle {
@@ -28,21 +29,46 @@
             border-radius: 0;
             transform: scale(10);
         }
+
+        #map-marker {
+            width: 50px; /* Adjust the size of the image if needed */
+            opacity: 0;
+            position: absolute;
+            bottom: 40px; /* This positions the image above the circle */
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <img id="map-marker" src="MapMarker.png" alt="Map Marker">
     <div id="circle"></div>
 
     <script>
         window.onload = function() {
+            // Delay the fade-in effect for both the circle and the image
             setTimeout(function() {
                 let circle = document.getElementById('circle');
+                let mapMarker = document.getElementById('map-marker');
                 circle.style.opacity = 1;
+                mapMarker.style.opacity = 1;
             }, 2000);
             
-            document.getElementById('circle').onclick = function() {
-                this.classList.add('square');
+            // Function to hide the image and transform the circle
+            function hideMarkerAndTransform() {
+                let mapMarker = document.getElementById('map-marker');
+                let circle = document.getElementById('circle');
+                
+                mapMarker.classList.add('hidden'); // Hide the image
+                circle.classList.add('square');    // Start circle to square transformation
             }
+
+            // Add click event listener to both the circle and the image
+            document.getElementById('circle').onclick = hideMarkerAndTransform;
+            document.getElementById('map-marker').onclick = hideMarkerAndTransform;
         }
     </script>
 </body>
