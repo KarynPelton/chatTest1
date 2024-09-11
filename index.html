@@ -74,35 +74,26 @@
             height: auto;
         }
 
-        /* Text reveal animation */
-        .text {
+        /* Map Marker image */
+        .map-marker {
             position: absolute;
-            top: 60%; /* Slightly below the airplane */
-            width: 100%;
-            text-align: center;
-            font-size: 20px; /* Much smaller text (20px) */
-            color: rgba(75, 0, 130, 0); /* Dark purple (hidden initially) */
-            font-weight: bold;
-            animation: revealText 5s forwards;
-            visibility: hidden; /* Hidden initially */
+            top: 60%; /* Just below the airplane */
+            left: 50%;
+            transform: translateX(-50%); /* Center the image horizontally */
+            width: 50px; /* Adjust marker size */
+            cursor: pointer;
         }
 
-        /* Reveal animation */
-        @keyframes revealText {
-            0% {
-                color: rgba(75, 0, 130, 0); /* Hidden */
-            }
-            50% {
-                visibility: visible;
-                color: rgba(75, 0, 130, 0); /* Still hidden */
-            }
-            51% {
-                visibility: visible;
-                color: rgba(75, 0, 130, 1); /* Revealed at middle */
-            }
-            100% {
-                color: rgba(75, 0, 130, 1); /* Remains visible */
-            }
+        /* Hidden text for "The Future is Here" */
+        .text {
+            position: absolute;
+            top: 70%; /* Below the MapMarker */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px; /* Font size of the text */
+            color: #4B0082; /* Dark purple */
+            font-weight: bold;
+            visibility: hidden; /* Hidden initially */
         }
     </style>
 </head>
@@ -122,23 +113,19 @@
         <img src="Cloud.png" alt="Cloud2">
     </div>
 
-    <!-- Revealed Text -->
-    <div class="text">
+    <!-- Map Marker -->
+    <img src="MapMarker.png" alt="Map Marker" class="map-marker" id="mapMarker">
+
+    <!-- Hidden text -->
+    <div class="text" id="text">
         The Future is Here
     </div>
 
     <script>
-        // Script to reveal text when airplane reaches the middle of the screen
-        document.addEventListener('DOMContentLoaded', function () {
-            const airplane = document.querySelector('.airplane');
-            const text = document.querySelector('.text');
-
-            airplane.addEventListener('animationiteration', () => {
-                setTimeout(() => {
-                    text.style.visibility = 'visible';
-                    text.style.animation = 'revealText 5s forwards';
-                }, 5000); // Trigger text after 5 seconds when the plane is at the middle
-            });
+        // Event listener for clicking the map marker
+        document.getElementById('mapMarker').addEventListener('click', function () {
+            const text = document.getElementById('text');
+            text.style.visibility = 'visible'; // Show the text when the marker is clicked
         });
     </script>
 </body>
