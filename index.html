@@ -3,137 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple ChatBot Interface</title>
+    <title>Airplane and Clouds Animation</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #87CEEB, #f0f8ff); /* Sky background */
         }
-        /* Chat container */
-        #chat-container {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            width: 300px;
-            background-color: white;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            display: none; /* Hidden until we trigger it */
+
+        .airplane {
+            position: absolute;
+            width: 100px;
+            top: 50%; /* Airplane in the middle of the frame */
+            left: -150px; /* Start airplane offscreen to the left */
+            animation: fly 10s linear infinite; /* Infinite loop for smooth flying */
         }
-        /* Chat header */
-        #chat-header {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            text-align: center;
+
+        .cloud1, .cloud2 {
+            position: absolute;
+            width: 150px;
         }
-        /* Chat body */
-        #chat-body {
-            padding: 10px;
-            height: 200px;
-            overflow-y: scroll;
-            border-bottom: 1px solid #ddd;
+
+        /* Cloud1 - Top cloud, moving right to left */
+        .cloud1 {
+            top: 20%; /* Top third of the screen */
+            right: -200px; /* Start offscreen from the right */
+            animation: cloud1Move 15s linear infinite; /* Slower movement */
         }
-        /* Input area */
-        #chat-input {
-            padding: 10px;
-            border: none;
-            border-radius: 0 0 10px 10px;
-            width: calc(100% - 20px);
-            box-sizing: border-box;
+
+        @keyframes cloud1Move {
+            0% {
+                right: -200px; /* Start offscreen from the right */
+            }
+            100% {
+                right: 100%; /* Move to the left side */
+            }
         }
-        #chat-input input {
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+
+        /* Cloud2 - Bottom cloud, moving left to right */
+        .cloud2 {
+            top: 70%; /* Bottom third of the screen */
+            left: -200px; /* Start offscreen from the left */
+            animation: cloud2Move 30s linear infinite; /* 50% slower movement */
         }
-        #chat-input button {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+
+        @keyframes cloud2Move {
+            0% {
+                left: -200px; /* Start offscreen from the left */
+            }
+            100% {
+                left: 100%; /* Move to the right side */
+            }
+        }
+
+        /* Airplane animation */
+        @keyframes fly {
+            0% {
+                left: -150px; /* Start off-screen */
+            }
+            100% {
+                left: 100%; /* End off-screen to the right */
+            }
+        }
+
+        .airplane img, .cloud1 img, .cloud2 img {
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <p>attempt new 1</p>
-    <div id="chat-container">
-        <div id="chat-header">
-            Chat with us!
-        </div>
-        <div id="chat-body">
-            <div id="messages"></div>
-        </div>
-        <div id="chat-input">
-            <input type="text" id="chat-text" placeholder="Type your message here..." />
-            <button id="send-btn">Send</button>
-        </div>
+    <!-- Airplane -->
+    <div class="airplane">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Airplane_silhouette.svg" alt="Airplane">
     </div>
 
-    <script>
-        // Replace with your Project-specific OpenAI API key
-        const apiKey = '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';  // Use your actual key
+    <!-- Top Cloud (moving right to left) -->
+    <div class="cloud1">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Cloud.png" alt="Cloud1">
+    </div>
 
-        // Show the chat widget after the page loads
-        window.onload = function() {
-            setTimeout(function() {
-                document.getElementById('chat-container').style.display = 'block';
-                document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> Welcome to our website! How can I assist you today?</p>';
-            }, 3000); // Show chat 3 seconds after page load
-        };
-
-        // Function to get ChatGPT response
-        async function getChatGPTResponse(message) {
-            try {
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`  // Correct Authorization header with Project API Key
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-3.5-turbo",  // Or use "gpt-4" if you have access to it
-                        messages: [{"role": "user", "content": message}]
-                    })
-                });
-
-                // Check if the response was successful
-                if (!response.ok) {
-                    throw new Error(`API error: ${response.status} - ${response.statusText}`);
-                }
-
-                const data = await response.json();
-
-                // Check if the 'choices' array and message content exist
-                if (data.choices && data.choices.length > 0) {
-                    return data.choices[0].message.content;
-                } else {
-                    throw new Error('Unexpected API response structure');
-                }
-            } catch (error) {
-                console.error('Error fetching response from ChatGPT:', error);
-                return 'Sorry, something went wrong while connecting to the chatbot.';
-            }
-        }
-
-        // Event listener to handle message sending
-        document.getElementById('send-btn').addEventListener('click', async function() {
-            let userMessage = document.getElementById('chat-text').value;
-            if (userMessage) {
-                document.getElementById('messages').innerHTML += '<p><strong>You:</strong> ' + userMessage + '</p>';
-                document.getElementById('chat-text').value = '';
-
-                // Get ChatGPT response and display it
-                const botResponse = await getChatGPTResponse(userMessage);
-                document.getElementById('messages').innerHTML += '<p><strong>Bot:</strong> ' + botResponse + '</p>';
-            }
-        });
-    </script>
+    <!-- Bottom Cloud (moving left to right) -->
+    <div class="cloud2">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Cloud.png" alt="Cloud2">
+    </div>
 </body>
 </html>
