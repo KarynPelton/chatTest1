@@ -13,7 +13,7 @@
 
         .airplane {
             position: absolute;
-            width: 400px; /* Airplane is now twice as large (400px instead of 200px) */
+            width: 400px; /* Airplane is twice as large (400px instead of 200px) */
             top: 50%; /* Airplane in the middle of the frame */
             left: -600px; /* Start airplane offscreen to the left, adjusted for larger size */
             animation: fly 10s linear infinite; /* Infinite loop for smooth flying */
@@ -74,20 +74,21 @@
             height: auto;
         }
 
-        /* Map Marker image */
+        /* Map Marker image (hidden initially) */
         .map-marker {
             position: absolute;
-            top: 60%; /* Just below the airplane */
+            top: 20%; /* Same level as the top cloud */
             left: 50%;
-            transform: translateX(-50%); /* Center the image horizontally */
+            transform: translateX(-50%);
             width: 50px; /* Adjust marker size */
             cursor: pointer;
+            visibility: hidden; /* Initially hidden */
         }
 
         /* Hidden text for "The Future is Here" */
         .text {
             position: absolute;
-            top: 70%; /* Below the MapMarker */
+            top: 30%; /* Below the MapMarker */
             left: 50%;
             transform: translateX(-50%);
             font-size: 20px; /* Font size of the text */
@@ -122,10 +123,32 @@
     </div>
 
     <script>
-        // Event listener for clicking the map marker
-        document.getElementById('mapMarker').addEventListener('click', function () {
+        // Event listener to show MapMarker when airplane reaches center
+        document.addEventListener('DOMContentLoaded', function () {
+            const airplane = document.querySelector('.airplane');
+            const mapMarker = document.getElementById('mapMarker');
             const text = document.getElementById('text');
-            text.style.visibility = 'visible'; // Show the text when the marker is clicked
+
+            // Show the MapMarker when airplane reaches the middle
+            airplane.addEventListener('animationiteration', function () {
+                setTimeout(() => {
+                    mapMarker.style.visibility = 'visible';
+                }, 5000); // Trigger marker after 5 seconds (when the plane is at the middle)
+            });
+
+            // Toggle visibility of the text and the map marker on click
+            let isTextVisible = false;
+            mapMarker.addEventListener('click', function () {
+                if (isTextVisible) {
+                    // Hide both the text and the map marker
+                    text.style.visibility = 'hidden';
+                    mapMarker.style.visibility = 'hidden';
+                } else {
+                    // Show the text
+                    text.style.visibility = 'visible';
+                }
+                isTextVisible = !isTextVisible;
+            });
         });
     </script>
 </body>
