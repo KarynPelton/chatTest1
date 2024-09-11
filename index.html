@@ -8,7 +8,7 @@
         body {
             margin: 0;
             overflow: hidden;
-            background-color: #4682B4; /* Solid medium blue background */
+            background: linear-gradient(to bottom, #4682B4, #0B3D91); /* Medium blue to dark blue gradient */
         }
 
         .airplane {
@@ -21,12 +21,12 @@
 
         .cloud1, .cloud2 {
             position: absolute;
-            width: 300px; /* Clouds size remains the same */
         }
 
         /* Cloud1 - Top cloud, moving right to left */
         .cloud1 {
             top: 20%; /* Top third of the screen */
+            width: 300px; /* Cloud size remains the same */
             right: -400px; /* Start offscreen from the right */
             animation: cloud1Move 15s linear infinite;
         }
@@ -43,6 +43,7 @@
         /* Cloud2 - Bottom cloud, moving left to right */
         .cloud2 {
             top: 70%; /* Bottom third of the screen */
+            width: 600px; /* Cloud is now twice as big */
             left: -400px; /* Start offscreen from the left */
             animation: cloud2Move 30s linear infinite; /* 50% slower movement */
         }
@@ -91,8 +92,9 @@
             top: 30%; /* Below the MapMarker */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 20px; /* Font size of the text */
-            color: #4B0082; /* Dark purple */
+            font-size: 16pt; /* Font size of the text reduced to 16pt */
+            color: #F5F5DC; /* Cream-colored text */
+            font-family: Arial, sans-serif; /* Arial font */
             font-weight: bold;
             visibility: hidden; /* Hidden initially */
         }
@@ -109,7 +111,7 @@
         <img src="Cloud.png" alt="Cloud1">
     </div>
 
-    <!-- Bottom Cloud (moving left to right) -->
+    <!-- Bottom Cloud (moving left to right, twice as large) -->
     <div class="cloud2">
         <img src="Cloud.png" alt="Cloud2">
     </div>
