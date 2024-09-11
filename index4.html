@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hello</title>
+    <title>Dynamic Circle to Square Transition</title>
     <style>
         body {
             margin: 0;
@@ -25,7 +25,7 @@
         }
 
         #circle {
-            width: 15px; /* 50% smaller circle */
+            width: 15px; /* Initial size */
             height: 15px;
             background-color: white; /* Remains white */
             border-radius: 50%;
@@ -38,8 +38,8 @@
 
         #circle.square {
             border-radius: 0;
-            width: 45px; /* 300% larger width */
-            height: 45px; /* 300% larger height */
+            width: 60px; /* 4 times larger */
+            height: 60px; /* 4 times larger */
             background-color: #001f3f; /* Dark navy blue when transformed */
             opacity: 1;
             border: 0.5px solid red; /* Thin red border */
