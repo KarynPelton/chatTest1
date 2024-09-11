@@ -13,7 +13,7 @@
 
         .airplane {
             position: absolute;
-            width: 200px; /* Airplane is now twice as large (200px instead of 100px) */
+            width: 200px; /* Airplane is twice as large (200px instead of 100px) */
             top: 50%; /* Airplane in the middle of the frame */
             left: -300px; /* Start airplane offscreen to the left, adjusted for larger size */
             animation: fly 10s linear infinite; /* Infinite loop for smooth flying */
@@ -21,7 +21,7 @@
 
         .cloud1, .cloud2 {
             position: absolute;
-            width: 300px; /* Clouds are now twice as large (300px instead of 150px) */
+            width: 300px; /* Clouds are twice as large (300px instead of 150px) */
         }
 
         /* Cloud1 - Top cloud, moving right to left */
@@ -61,6 +61,9 @@
             0% {
                 left: -300px; /* Start off-screen, adjusted for larger size */
             }
+            50% {
+                left: 50%; /* When the airplane is at the middle of the screen */
+            }
             100% {
                 left: 100%; /* End off-screen to the right */
             }
@@ -69,6 +72,37 @@
         .airplane img, .cloud1 img, .cloud2 img {
             width: 100%;
             height: auto;
+        }
+
+        /* Text reveal animation */
+        .text {
+            position: absolute;
+            top: 55%; /* Slightly below the airplane */
+            width: 100%;
+            text-align: center;
+            font-size: 200px; /* Same height as the airplane */
+            color: rgba(75, 0, 130, 0); /* Dark purple (hidden initially) */
+            font-weight: bold;
+            animation: revealText 5s forwards;
+            visibility: hidden; /* Hidden initially */
+        }
+
+        /* Reveal animation */
+        @keyframes revealText {
+            0% {
+                color: rgba(75, 0, 130, 0); /* Hidden */
+            }
+            50% {
+                visibility: visible;
+                color: rgba(75, 0, 130, 0); /* Still hidden */
+            }
+            51% {
+                visibility: visible;
+                color: rgba(75, 0, 130, 1); /* Revealed at middle */
+            }
+            100% {
+                color: rgba(75, 0, 130, 1); /* Remains visible */
+            }
         }
     </style>
 </head>
@@ -87,5 +121,25 @@
     <div class="cloud2">
         <img src="Cloud.png" alt="Cloud2">
     </div>
+
+    <!-- Revealed Text -->
+    <div class="text">
+        The Future is Here
+    </div>
+
+    <script>
+        // Script to reveal text when airplane reaches the middle of the screen
+        document.addEventListener('DOMContentLoaded', function () {
+            const airplane = document.querySelector('.airplane');
+            const text = document.querySelector('.text');
+
+            airplane.addEventListener('animationiteration', () => {
+                setTimeout(() => {
+                    text.style.visibility = 'visible';
+                    text.style.animation = 'revealText 5s forwards';
+                }, 5000); // Trigger text after 5 seconds when the plane is at the middle
+            });
+        });
+    </script>
 </body>
 </html>
