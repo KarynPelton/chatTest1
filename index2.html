@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airplane and Clouds Animation</title>
+    <title>K</title>
     <style>
         body {
             margin: 0;
@@ -106,13 +106,13 @@
             visibility: hidden; /* Hidden initially */
         }
 
-        /* Keyframes for the final zooming effect (towards bottom left) */
-        @keyframes zoomForward {
+        /* Keyframes for zooming off to the bottom center */
+        @keyframes zoomOffScreen {
             0% {
                 transform: translateX(-50%) scale(1); /* Normal size */
             }
             100% {
-                transform: translate(-500px, 500px) scale(10); /* Zoom forward to bottom left */
+                transform: translateX(-50%) translateY(400px) scale(2); /* Zoom forward and slide to the bottom */
                 opacity: 0; /* Fade out as it zooms */
             }
         }
@@ -160,8 +160,8 @@
             let isTextVisible = false;
             mapMarker.addEventListener('click', function () {
                 if (isTextVisible) {
-                    // Make the map marker zoom forward to the bottom left and disappear
-                    mapMarker.style.animation = 'zoomForward 2s forwards';
+                    // Make the map marker zoom forward and slide to the middle bottom
+                    mapMarker.style.animation = 'zoomOffScreen 1s forwards'; // Zoom off twice as fast
                     text.style.visibility = 'hidden'; // Hide text
                 } else {
                     // Show the text
