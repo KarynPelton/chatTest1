@@ -13,27 +13,27 @@
 
         .airplane {
             position: absolute;
-            width: 100px;
+            width: 200px; /* Airplane is now twice as large (200px instead of 100px) */
             top: 50%; /* Airplane in the middle of the frame */
-            left: -150px; /* Start airplane offscreen to the left */
+            left: -300px; /* Start airplane offscreen to the left, adjusted for larger size */
             animation: fly 10s linear infinite; /* Infinite loop for smooth flying */
         }
 
         .cloud1, .cloud2 {
             position: absolute;
-            width: 150px;
+            width: 300px; /* Clouds are now twice as large (300px instead of 150px) */
         }
 
         /* Cloud1 - Top cloud, moving right to left */
         .cloud1 {
             top: 20%; /* Top third of the screen */
-            right: -200px; /* Start offscreen from the right */
+            right: -400px; /* Start offscreen from the right, adjusted for larger size */
             animation: cloud1Move 15s linear infinite; /* Slower movement */
         }
 
         @keyframes cloud1Move {
             0% {
-                right: -200px; /* Start offscreen from the right */
+                right: -400px; /* Start offscreen from the right */
             }
             100% {
                 right: 100%; /* Move to the left side */
@@ -43,13 +43,13 @@
         /* Cloud2 - Bottom cloud, moving left to right */
         .cloud2 {
             top: 70%; /* Bottom third of the screen */
-            left: -200px; /* Start offscreen from the left */
+            left: -400px; /* Start offscreen from the left, adjusted for larger size */
             animation: cloud2Move 30s linear infinite; /* 50% slower movement */
         }
 
         @keyframes cloud2Move {
             0% {
-                left: -200px; /* Start offscreen from the left */
+                left: -400px; /* Start offscreen from the left */
             }
             100% {
                 left: 100%; /* Move to the right side */
@@ -59,7 +59,7 @@
         /* Airplane animation */
         @keyframes fly {
             0% {
-                left: -150px; /* Start off-screen */
+                left: -300px; /* Start off-screen, adjusted for larger size */
             }
             100% {
                 left: 100%; /* End off-screen to the right */
