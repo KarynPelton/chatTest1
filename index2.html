@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airplane and Clouds Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #4682B4; /* Fallback for old browsers (solid medium blue) */
+            background: -webkit-gradient(linear, left top, left bottom, from(#4682B4), to(#0B3D91)); /* Safari 4-5, Chrome 1-9 */
+            background: -webkit-linear-gradient(top, #4682B4, #0B3D91); /* Safari 5.1-6, Chrome 10-25 */
+            background: -moz-linear-gradient(top, #4682B4, #0B3D91); /* Firefox 3.6-15 */
+            background: -o-linear-gradient(top, #4682B4, #0B3D91); /* Opera 11.1-12 */
+            background: linear-gradient(to bottom, #4682B4, #0B3D91); /* Standard, modern browsers */
+            height: 100vh; /* Ensure the body covers the full viewport height */
+        }
+
+        .airplane {
+            position: absolute;
+            width: 400px; /* Airplane is twice as large (400px instead of 200px) */
+            top: 50%; /* Airplane in the middle of the frame */
+            left: -600px; /* Start airplane offscreen to the left, adjusted for larger size */
+            animation: fly 10s linear infinite; /* Infinite loop for smooth flying */
+        }
+
+        .cloud1, .cloud2 {
+            position: absolute;
+        }
+
+        /* Cloud1 - Top cloud, moving right to left */
+        .cloud1 {
+            top: 20%; /* Top third of the screen */
+            width: 300px; /* Cloud size remains the same */
+            right: -400px; /* Start offscreen from the right */
+            animation: cloud1Move 15s linear infinite;
+        }
+
+        @keyframes cloud1Move {
+            0% {
+                right: -400px; /* Start offscreen from the right */
+            }
+            100% {
+                right: 100%; /* Move to the left side */
+            }
+        }
+
+        /* Cloud2 - Bottom cloud, moving left to right */
+        .cloud2 {
+            top: 70%; /* Bottom third of the screen */
+            width: 600px; /* Cloud is now twice as big */
+            left: -400px; /* Start offscreen from the left */
+            animation: cloud2Move 30s linear infinite; /* 50% slower movement */
+        }
+
+        @keyframes cloud2Move {
+            0% {
+                left: -400px; /* Start offscreen from the left */
+            }
+            100% {
+                left: 100%; /* Move to the right side */
+            }
+        }
+
+        /* Airplane animation */
+        @keyframes fly {
+            0% {
+                left: -600px; /* Start off-screen, adjusted for larger size */
+            }
+            50% {
+                left: 50%; /* When the airplane is at the middle of the screen */
+            }
+            100% {
+                left: 100%; /* End off-screen to the right */
+            }
+        }
+
+        .airplane img, .cloud1 img, .cloud2 img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Map Marker image (hidden initially) */
+        .map-marker {
+            position: absolute;
+            top: 20%; /* Same level as the top cloud */
+            left: 50%;
+            transform: translateX(-50%) scale(0); /* Initially invisible, scales from 0 */
+            width: 50px; /* Adjust marker size */
+            cursor: pointer;
+            visibility: hidden; /* Initially hidden */
+            transition: transform 2s ease-out; /* Zoom in transition */
+        }
+
+        /* Hidden text for "The Future is Here" */
+        .text {
+            position: absolute;
+            top: 30%; /* Below the MapMarker */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16pt; /* Font size of the text reduced to 16pt */
+            color: #F5F5DC; /* Cream-colored text */
+            font-family: Arial, sans-serif; /* Arial font */
+            font-weight: bold;
+            visibility: hidden; /* Hidden initially */
+        }
+
+        /* Keyframes for the final zooming effect */
+        @keyframes zoomForward {
+            0% {
+                transform: translateX(-50%) scale(1); /* Normal size */
+            }
+            100% {
+                transform: translateX(-50%) scale(10) translateY(-500px); /* Zoom forward */
+                opacity: 0; /* Fade out as it zooms */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Airplane -->
+    <div class="airplane">
+        <img src="plane.png" alt="Airplane">
+    </div>
+
+    <!-- Top Cloud (moving right to left) -->
+    <div class="cloud1">
+        <img src="Cloud.png" alt="Cloud1">
+    </div>
+
+    <!-- Bottom Cloud (moving left to right, twice as large) -->
+    <div class="cloud2">
+        <img src="Cloud.png" alt="Cloud2">
+    </div>
+
+    <!-- Map Marker -->
+    <img src="MapMarker.png" alt="Map Marker" class="map-marker" id="mapMarker">
+
+    <!-- Hidden text -->
+    <div class="text" id="text">
+        The Future is Here
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const airplane = document.querySelector('.airplane');
+            const mapMarker = document.getElementById('mapMarker');
+            const text = document.getElementById('text');
+
+            // Show the MapMarker when airplane reaches the middle
+            airplane.addEventListener('animationiteration', function () {
+                setTimeout(() => {
+                    mapMarker.style.visibility = 'visible';
+                    mapMarker.style.transform = 'translateX(-50%) scale(1)'; // Zoom in
+                }, 5000); // Trigger marker after 5 seconds (when the plane is at the middle)
+            });
+
+            // Handle clicks on the map marker
+            let isTextVisible = false;
+            mapMarker.addEventListener('click', function () {
+                if (isTextVisible) {
+                    // Make the map marker zoom forward and disappear
+                    mapMarker.style.animation = 'zoomForward 2s forwards';
+                    text.style.visibility = 'hidden'; // Hide text
+                } else {
+                    // Show the text
+                    text.style.visibility = 'visible';
+                }
+                isTextVisible = !isTextVisible;
+            });
+        });
+    </script>
+</body>
+</html>
