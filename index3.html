@@ -3,176 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airplane and Clouds Animation</title>
+    <title>Circle to Square Transition</title>
     <style>
         body {
             margin: 0;
-            overflow: hidden;
-            background: linear-gradient(to bottom, yellow, #4682B4, #0B3D91); /* Gradient from yellow to medium blue to dark blue */
-            height: 100vh; /* Ensure the body covers the full viewport height */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
         }
 
-        .airplane {
-            position: absolute;
-            width: 400px; /* Airplane is twice as large (400px instead of 200px) */
-            top: 50%; /* Airplane in the middle of the frame */
-            left: -600px; /* Start airplane offscreen to the left, adjusted for larger size */
-            animation: fly 10s linear infinite; /* Infinite loop for smooth flying */
-        }
-
-        .cloud1, .cloud2 {
-            position: absolute;
-        }
-
-        /* Cloud1 - Top cloud, moving right to left */
-        .cloud1 {
-            top: 20%; /* Top third of the screen */
-            width: 300px; /* Cloud size remains the same */
-            right: -400px; /* Start offscreen from the right */
-            animation: cloud1Move 15s linear infinite;
-        }
-
-        @keyframes cloud1Move {
-            0% {
-                right: -400px; /* Start offscreen from the right */
-            }
-            100% {
-                right: 100%; /* Move to the left side */
-            }
-        }
-
-        /* Cloud2 - Bottom cloud, moving left to right */
-        .cloud2 {
-            top: 70%; /* Bottom third of the screen */
-            width: 600px; /* Cloud is now twice as big */
-            left: -400px; /* Start offscreen from the left */
-            animation: cloud2Move 30s linear infinite; /* 50% slower movement */
-        }
-
-        @keyframes cloud2Move {
-            0% {
-                left: -400px; /* Start offscreen from the left */
-            }
-            100% {
-                left: 100%; /* Move to the right side */
-            }
-        }
-
-        /* Airplane animation */
-        @keyframes fly {
-            0% {
-                left: -600px; /* Start off-screen, adjusted for larger size */
-            }
-            50% {
-                left: 50%; /* When the airplane is at the middle of the screen */
-            }
-            100% {
-                left: 100%; /* End off-screen to the right */
-            }
-        }
-
-        .airplane img, .cloud1 img, .cloud2 img {
-            width: 100%;
-            height: auto;
-        }
-
-        /* Map Marker (initial circle shape) */
-        .map-marker {
-            position: absolute;
-            top: 25%; 
-            left: 50%;
-            transform: translateX(-50%) scale(0); /* Initially invisible */
-            width: 50px;
-            height: 50px;
-            background-color: red; /* Set initial marker color */
-            border-radius: 50%; /* Circle shape */
-            cursor: pointer;
-            visibility: hidden; /* Initially hidden */
-            transition: transform 2s ease-out, border-radius 1s ease-in-out; /* Zoom and border radius transition */
-        }
-
-        /* Hidden text inside the square */
-        .text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 14pt;
-            color: #FFF; /* White text */
-            font-family: Arial, sans-serif;
-            visibility: hidden; /* Hidden initially */
+        #circle {
+            width: 30px;
+            height: 30px;
+            background-color: blue;
+            border-radius: 50%;
             opacity: 0;
-            transition: opacity 1s ease-in-out; /* Fade in transition */
+            position: absolute;
+            transition: opacity 1s ease-in-out, transform 6s ease-in-out, border-radius 6s ease-in-out;
         }
 
-        /* After becoming a square */
-        .square {
-            width: 150px;
-            height: 150px;
-            border-radius: 0; /* Change shape to square */
-            background-color: blue; /* Square background */
-        }
-
-        /* Keyframes for sliding all the way off to the left */
-        @keyframes slideOffLeft {
-            0% {
-                transform: translateX(-50%) scale(1.6); /* Start in the center */
-            }
-            100% {
-                transform: translateX(-200vw) scale(1.6); /* Slide completely off the viewport to the left */
-            }
-        }
-
-        /* Slow down the marker's exit speed */
-        .map-marker.slow-slide {
-            animation-duration: 4s; /* Twice as slow */
+        #circle.square {
+            border-radius: 0;
+            transform: scale(10);
         }
     </style>
 </head>
 <body>
-    <!-- Airplane -->
-    <div class="airplane">
-        <img src="plane.png" alt="Airplane">
-    </div>
-
-    <!-- Top Cloud (moving right to left) -->
-    <div class="cloud1">
-        <img src="Cloud.png" alt="Cloud1">
-    </div>
-
-    <!-- Bottom Cloud (moving left to right, twice as large) -->
-    <div class="cloud2">
-        <img src="Cloud.png" alt="Cloud2">
-    </div>
-
-    <!-- Map Marker (initially hidden, turns into square) -->
-    <div class="map-marker" id="mapMarker"></div>
-
-    <!-- Hidden text inside the square -->
-    <div class="text" id="text">The Future is Here</div>
+    <div id="circle"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mapMarker = document.getElementById('mapMarker');
-            const text = document.getElementById('text');
-
-            // Show the MapMarker after 3 seconds
-            setTimeout(() => {
-                mapMarker.style.visibility = 'visible';
-                mapMarker.style.transform = 'translateX(-50%) scale(1.6)'; // Zoom in
-            }, 3000);
-
-            // After the marker zooms in, change it into a square
-            setTimeout(() => {
-                mapMarker.classList.add('square'); // Add the class to change shape to square
-            }, 5000); // Wait 2 more seconds before changing into a square
-
-            // After becoming a square, show the text inside
-            setTimeout(() => {
-                text.style.visibility = 'visible';
-                text.style.opacity = 1; // Fade in the text
-            }, 6000); // Wait 1 second after square transformation to reveal text
-        });
+        window.onload = function() {
+            setTimeout(function() {
+                let circle = document.getElementById('circle');
+                circle.style.opacity = 1;
+            }, 2000);
+            
+            document.getElementById('circle').onclick = function() {
+                this.classList.add('square');
+            }
+        }
     </script>
 </body>
 </html>
