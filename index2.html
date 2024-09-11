@@ -90,7 +90,7 @@
             width: 50px; /* Adjust marker size */
             cursor: pointer;
             visibility: hidden; /* Initially hidden */
-            transition: transform 2s ease-out; /* Zoom in transition */
+            transition: transform 1s ease-out; /* Zoom in transition, twice as fast */
         }
 
         /* Hidden text for "The Future is Here" */
@@ -106,13 +106,13 @@
             visibility: hidden; /* Hidden initially */
         }
 
-        /* Keyframes for the final zooming effect */
+        /* Keyframes for the final zooming effect (towards bottom left) */
         @keyframes zoomForward {
             0% {
                 transform: translateX(-50%) scale(1); /* Normal size */
             }
             100% {
-                transform: translateX(-50%) scale(10) translateY(-500px); /* Zoom forward */
+                transform: translate(-500px, 500px) scale(10); /* Zoom forward to bottom left */
                 opacity: 0; /* Fade out as it zooms */
             }
         }
@@ -152,7 +152,7 @@
             airplane.addEventListener('animationiteration', function () {
                 setTimeout(() => {
                     mapMarker.style.visibility = 'visible';
-                    mapMarker.style.transform = 'translateX(-50%) scale(1)'; // Zoom in
+                    mapMarker.style.transform = 'translateX(-50%) scale(1)'; // Zoom in twice as fast
                 }, 5000); // Trigger marker after 5 seconds (when the plane is at the middle)
             });
 
@@ -160,7 +160,7 @@
             let isTextVisible = false;
             mapMarker.addEventListener('click', function () {
                 if (isTextVisible) {
-                    // Make the map marker zoom forward and disappear
+                    // Make the map marker zoom forward to the bottom left and disappear
                     mapMarker.style.animation = 'zoomForward 2s forwards';
                     text.style.visibility = 'hidden'; // Hide text
                 } else {
