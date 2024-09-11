@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ain</title>
+    <title>A</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            background: #4682B4; /* Fallback for old browsers (solid medium blue) */
-            background: -webkit-gradient(linear, left top, left bottom, from(#4682B4), to(#0B3D91)); /* Safari 4-5, Chrome 1-9 */
-            background: -webkit-linear-gradient(top, #4682B4, #0B3D91); /* Safari 5.1-6, Chrome 10-25 */
-            background: -moz-linear-gradient(top, #4682B4, #0B3D91); /* Firefox 3.6-15 */
-            background: -o-linear-gradient(top, #4682B4, #0B3D91); /* Opera 11.1-12 */
-            background: linear-gradient(to bottom, #4682B4, #0B3D91); /* Standard, modern browsers */
+            background: linear-gradient(to bottom, yellow, #4682B4, #0B3D91); /* Gradient from yellow to medium blue to dark blue */
             height: 100vh; /* Ensure the body covers the full viewport height */
         }
 
@@ -106,13 +101,13 @@
             visibility: hidden; /* Hidden initially */
         }
 
-        /* Keyframes for sliding off to the left */
+        /* Keyframes for sliding all the way off to the left */
         @keyframes slideOffLeft {
             0% {
                 transform: translateX(-50%) scale(1); /* Start in the center */
             }
             100% {
-                transform: translateX(-200%) scale(1); /* Slide to the left, off-screen */
+                transform: translateX(-200vw) scale(1); /* Slide completely off the viewport to the left */
             }
         }
     </style>
@@ -156,7 +151,7 @@
             let isTextVisible = false;
             mapMarker.addEventListener('click', function () {
                 if (isTextVisible) {
-                    // Make the map marker slide off to the left
+                    // Make the map marker slide all the way off to the left
                     mapMarker.style.animation = 'slideOffLeft 1s forwards';
                     text.style.visibility = 'hidden'; // Hide text
                 } else {
