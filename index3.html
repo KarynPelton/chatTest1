@@ -15,13 +15,19 @@
             position: relative;
         }
 
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         #circle {
             width: 30px;
             height: 30px;
             background-color: #001f3f; /* Dark navy blue */
             border-radius: 50%;
             opacity: 0;
-            position: absolute;
             transition: opacity 1s ease-in-out, transform 6s ease-in-out, border-radius 6s ease-in-out, border 6s ease-in-out;
         }
 
@@ -34,10 +40,8 @@
         #map-marker {
             width: 50px; /* Adjust the size of the image if needed */
             opacity: 0;
-            position: absolute;
-            bottom: 50px; /* This positions the image above the circle */
-            z-index: 10; /* Make sure the image is above the circle */
             transition: opacity 1s ease-in-out;
+            margin-bottom: 10px; /* Space between the marker and the circle */
         }
 
         .hidden {
@@ -46,8 +50,10 @@
     </style>
 </head>
 <body>
-    <img id="map-marker" src="MapMarker.png" alt="Map Marker">
-    <div id="circle"></div>
+    <div class="container">
+        <img id="map-marker" src="MapMarker.png" alt="Map Marker">
+        <div id="circle"></div>
+    </div>
 
     <script>
         window.onload = function() {
