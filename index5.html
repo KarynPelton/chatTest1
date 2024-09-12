@@ -46,23 +46,22 @@
         /* Airplane */
         .airplane {
             position: absolute;
-            width: 823px; /* Correct width for plane */
-            height: 384px; /* Correct height for plane */
+            width: 411.5px; /* 50% of 823px */
+            height: 192px; /* 50% of 384px */
             top: 50%; /* Start from middle of the screen vertically */
-            left: -823px; /* Start outside of the screen, adjusting based on width */
+            left: -411.5px; /* Start outside of the screen, adjusting based on new width */
             transform: translateY(-50%);
             z-index: 3; /* On top of clouds */
             background-image: url('plane.png');
             background-size: cover; /* Ensure image fills the space */
             background-repeat: no-repeat;
-            border: 2px solid red; /* Add a red border for debugging */
             animation: flyIn 5s ease-out forwards, hover 3s ease-in-out infinite; /* Fly in first, then hover */
         }
 
         /* Fly airplane from left to right */
         @keyframes flyIn {
             0% {
-                left: -823px; /* Start off-screen based on plane width */
+                left: -411.5px; /* Start off-screen based on new plane width */
             }
             100% {
                 left: 50%; /* Stop at the middle of the screen horizontally */
