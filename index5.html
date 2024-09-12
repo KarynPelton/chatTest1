@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            background-color: #c18317; /* Medium blue background */
+            background-color: #0077b6; /* Medium blue background */
             overflow: hidden;
         }
 
@@ -46,14 +46,14 @@
         /* Airplane */
         .airplane {
             position: absolute;
-            width: 200px; /* Adjust as needed */
-            height: auto;
+            width: 823px; /* Correct width for plane */
+            height: 384px; /* Correct height for plane */
             top: 50%; /* Start from middle of the screen vertically */
-            left: -200px; /* Start outside of the screen */
+            left: -823px; /* Start outside of the screen, adjusting based on width */
             transform: translateY(-50%);
             z-index: 3; /* On top of clouds */
             background-image: url('plane.png');
-            background-size: contain;
+            background-size: cover; /* Ensure image fills the space */
             background-repeat: no-repeat;
             border: 2px solid red; /* Add a red border for debugging */
             animation: flyIn 5s ease-out forwards, hover 3s ease-in-out infinite; /* Fly in first, then hover */
@@ -62,7 +62,7 @@
         /* Fly airplane from left to right */
         @keyframes flyIn {
             0% {
-                left: -200px; /* Start off-screen */
+                left: -823px; /* Start off-screen based on plane width */
             }
             100% {
                 left: 50%; /* Stop at the middle of the screen horizontally */
