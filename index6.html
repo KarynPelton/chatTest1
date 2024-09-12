@@ -48,14 +48,14 @@
             opacity: 1; /* Visible at the start */
         }
 
-        /* Airplane - initially static in the middle */
+        /* Airplane - initially 200% larger and bleeds off left side */
         .airplane {
             position: absolute;
-            width: 411.5px; /* 50% of 823px */
-            height: 192px; /* 50% of 384px */
+            width: 823px; /* Original width, will be scaled up */
+            height: 384px; /* Original height, will be scaled up */
             top: 50%; /* Start in the middle vertically */
-            left: 50%; /* Center horizontally */
-            transform: translate(-50%, -50%);
+            left: -20%; /* Bleed off the left-hand side */
+            transform: translateY(-50%) scale(2); /* 200% larger */
             z-index: 3;
             background-image: url('plane.png');
             background-size: cover;
@@ -64,14 +64,26 @@
             transition: left 2s ease-out; /* For smooth flying off screen */
         }
 
-        /* Text Styling */
+        /* Click to Start text */
+        .click-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Arial Black', sans-serif;
+            font-size: 40pt;
+            color: #333333;
+            z-index: 4;
+        }
+
+        /* Text Styling for main message */
         .fade-text {
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Arial Black', sans-serif;
-            color: #333333; /* Dark Gray color */
+            color: #333333;
             font-size: 130pt;
             white-space: nowrap;
             overflow: visible;
@@ -83,10 +95,40 @@
         /* Fly airplane to the right */
         @keyframes flyOffRight {
             0% {
-                left: 50%;
+                left: -20%; /* Starts 200% larger, partly offscreen */
             }
             100% {
                 left: 110%; /* Move off the screen to the right */
+            }
+        }
+
+        /* Fly airplane from left to right again */
+        @keyframes flyIn {
+            0% {
+                left: -411.5px; /* Start off-screen */
+            }
+            100% {
+                left: 50%; /* Stop in the middle */
+                transform: translate(-50%, -50%); /* Center */
+            }
+        }
+
+        /* More pronounced gentle hovering effect */
+        @keyframes hover {
+            0% {
+                transform: translate(-50%, -50%);
+            }
+            25% {
+                transform: translate(-46%, -54%); /* More pronounced up and left */
+            }
+            50% {
+                transform: translate(-50%, -46%); /* More pronounced down */
+            }
+            75% {
+                transform: translate(-54%, -50%); /* More pronounced down and right */
+            }
+            100% {
+                transform: translate(-50%, -50%); /* Return to center */
             }
         }
 
@@ -138,7 +180,7 @@
                 transform: translateX(-50%);
             }
             100% {
-                font-size: 40pt;
+                font-size: 25pt;
                 bottom: 66%;
                 transform: translateX(-50%);
             }
@@ -152,30 +194,45 @@
     
     <div class="airplane" id="plane"></div> <!-- Airplane element -->
 
-    <!-- Text element -->
+    <!-- Click to Start text -->
+    <div class="click-text" id="click-text">Click to Start</div>
+
+    <!-- Main Text element -->
     <div class="fade-text">Why Travel Insurance from Ingle?</div>
 
     <script>
         const plane = document.getElementById('plane');
+        const clickText = document.getElementById('click-text');
         const cloudRow1 = document.querySelector('.cloud-row1');
         const cloudRow2 = document.querySelector('.cloud-row2');
         const text = document.querySelector('.fade-text');
 
         // Function to start the plane animation and show other elements
         plane.addEventListener('click', function () {
+            // Hide "Click to Start" text
+            clickText.style.display = 'none';
+
             // Fly plane off to the right
             plane.style.left = '110%'; 
             
             // Start the other animations after the plane flies off
             setTimeout(function () {
+                // Reset plane size and position for animation
+                plane.style.transform = 'translate(-50%, -50%) scale(1)';
+                plane.style.left = '-411.5px'; // Start off-screen
+
+                // Fly plane in
+                plane.style.transition = 'left 5s ease-in-out';
+                plane.style.left = '50%'; // Move to center
+                plane.style.transform = 'translate(-50%, -50%)';
+
+                // Start cloud animations
                 cloudRow1.style.opacity = '1';
                 cloudRow2.style.opacity = '1';
-                
-                // Start cloud animations
                 cloudRow1.style.animationPlayState = 'running';
                 cloudRow2.style.animationPlayState = 'running';
-                
-                // Start the text animation
+
+                // Start text animations
                 text.style.animationPlayState = 'running';
             }, 2000); // Delay 2 seconds (matching the plane fly-off duration)
         });
