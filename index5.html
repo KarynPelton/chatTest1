@@ -10,7 +10,7 @@
             padding: 0;
             height: 100%;
             background: linear-gradient(to bottom, 
-                #ff9900 0%,  /* Yellow at the top */
+                #FF9900 0%,  /* Orange at the top */
                 #FFCF33 20%,  /* Lighter yellow transition */
                 #00A1D6 50%,  /* Medium blue transition */
                 #000080 100%); /* Dark blue at the bottom */
@@ -24,68 +24,94 @@
             height: 100%; /* Each cloud layer covers the full height */
             background-size: contain;
             background-repeat: repeat-x;
+            opacity: 0; /* Initially hidden for non-active layers */
         }
 
-        /* CloudRow1 - moves at a moderate pace (foreground) */
+        /* CloudRow1 - top layer (will be animated after the click) */
         .cloud-row1 {
-            z-index: 3; /* Top layer, in front of everything */
+            z-index: 3;
             background-image: url('CloudRow1.png');
-            animation: moveClouds1 20s linear infinite; /* Moderate speed */
+            opacity: 0; /* Hidden on the initial screen */
+            animation: moveClouds1 20s linear infinite paused;
         }
 
-        /* CloudRow2 - moves 30% slower than CloudRow1 (middle layer) */
+        /* CloudRow2 - middle layer */
         .cloud-row2 {
-            z-index: 2; /* Second layer, in front of text */
+            z-index: 2;
             background-image: url('CloudRow2.png');
-            animation: moveClouds2 26s linear infinite; /* 30% slower */
+            animation: moveClouds2 26s linear infinite paused;
         }
 
-        /* CloudRow3 - moves 30% slower than CloudRow2 (bottom layer) */
+        /* CloudRow3 - bottom layer, visible initially */
         .cloud-row3 {
-            z-index: 0; /* Bottom layer, behind text */
+            z-index: 0;
             background-image: url('CloudRow3.png');
-            animation: moveClouds3 33.8s linear infinite; /* 30% slower than row 2 */
+            opacity: 1; /* Visible on initial screen */
+            animation: moveClouds3 33.8s linear infinite paused; /* Paused until clicked */
         }
 
-        /* Airplane */
+        /* Airplane - initially 200% larger and bleeds off left side */
         .airplane {
             position: absolute;
-            width: 411.5px; /* 50% of 823px */
-            height: 192px; /* 50% of 384px */
-            top: 50%; /* Start from middle of the screen vertically */
-            left: 50%; /* Center horizontally */
-            transform: translate(-50%, -50%); /* Center the plane */
-            z-index: 3; /* On top of clouds */
+            width: 823px; /* Original width */
+            height: 384px; /* Original height */
+            top: 50%; /* Start in the middle vertically */
+            left: -20%; /* Bleed off the left-hand side */
+            transform: translateY(-50%) scale(2); /* 200% larger */
+            z-index: 3;
             background-image: url('plane.png');
-            background-size: cover; /* Ensure image fills the space */
+            background-size: cover;
             background-repeat: no-repeat;
-            animation: flyIn 5s ease-out forwards, hover 3s ease-in-out infinite; /* Fly in first, then hover */
+            cursor: pointer;
+            transition: left 2s ease-out; /* For smooth flying off screen */
         }
 
-        /* Text Styling */
+        /* Click to Start text */
+        .click-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Arial Black', sans-serif;
+            font-size: 40pt;
+            color: #333333;
+            z-index: 4;
+        }
+
+        /* Text Styling for main message */
         .fade-text {
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Arial Black', sans-serif;
-            color: #333333; /* Updated text color */
-            font-size: 130pt; /* Initial max size */
-            white-space: nowrap; /* Force text to stay on one line */
-            overflow: visible; /* Allow overflow if text is too large */
+            color: #333333;
+            font-size: 130pt;
+            white-space: nowrap;
+            overflow: visible;
             opacity: 0; /* Initially hidden */
-            z-index: 1; /* Between CloudRow3 (z-index: 0) and CloudRow2 (z-index: 2) */
+            z-index: 1;
             animation: fadeInText 2s ease-in 10s forwards, shrinkText 2s ease-in 12s forwards;
         }
 
-        /* Fly airplane from left to right */
-        @keyframes flyIn {
+        /* Fly airplane to the right */
+        @keyframes flyOffRight {
             0% {
-                left: -411.5px; /* Start off-screen based on new plane width */
+                left: -20%; /* Starts 200% larger, partly offscreen */
             }
             100% {
-                left: 50%; /* Stop at the middle of the screen horizontally */
-                transform: translate(-50%, -50%); /* Center the plane */
+                left: 110%; /* Move off the screen to the right */
+            }
+        }
+
+        /* Fly airplane from left to right again */
+        @keyframes flyIn {
+            0% {
+                left: 411.5px; /* Start off-screen from the left */
+            }
+            100% {
+                left: 50%; /* Stop in the middle */
+                transform: translate(-50%, -50%); /* Center */
             }
         }
 
@@ -111,30 +137,30 @@
         /* Animation for CloudRow1 */
         @keyframes moveClouds1 {
             0% {
-                transform: translateX(0); /* Start at the right */
+                transform: translateX(0);
             }
             100% {
-                transform: translateX(-50%); /* Move left by 50% of the total width */
+                transform: translateX(-50%);
             }
         }
 
         /* Animation for CloudRow2 */
         @keyframes moveClouds2 {
             0% {
-                transform: translateX(0); /* Start at the right */
+                transform: translateX(0);
             }
             100% {
-                transform: translateX(-50%); /* Move left by 50% of the total width */
+                transform: translateX(-50%);
             }
         }
 
         /* Animation for CloudRow3 */
         @keyframes moveClouds3 {
             0% {
-                transform: translateX(0); /* Start at the right */
+                transform: translateX(0);
             }
             100% {
-                transform: translateX(-50%); /* Move left by 50% of the total width */
+                transform: translateX(-50%);
             }
         }
 
@@ -156,22 +182,73 @@
                 transform: translateX(-50%);
             }
             100% {
-                font-size: 40pt; /* Final size of 40pt */
-                bottom: 66%; /* Top third of the screen */
+                font-size: 40pt;
+                bottom: 66%;
                 transform: translateX(-50%);
             }
         }
-
     </style>
 </head>
 <body>
     <div class="clouds cloud-row1"></div>
     <div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
-    <div class="airplane"></div> <!-- Airplane element -->
+    
+    <div class="airplane" id="plane"></div> <!-- Airplane element -->
 
-    <!-- Text element -->
+    <!-- Click to Start text -->
+    <div class="click-text" id="click-text">Click to Start</div>
+
+    <!-- Main Text element -->
     <div class="fade-text">Why Travel Insurance from Ingle?</div>
+
+    <script>
+        const plane = document.getElementById('plane');
+        const clickText = document.getElementById('click-text');
+        const cloudRow1 = document.querySelector('.cloud-row1');
+        const cloudRow3 = document.querySelector('.cloud-row3');
+        const cloudRow2 = document.querySelector('.cloud-row2');
+        const text = document.querySelector('.fade-text');
+
+        // Function to start the plane animation and show other elements
+        plane.addEventListener('click', function () {
+            // Hide "Click to Start" text
+            clickText.style.display = 'none';
+
+            // Fly plane off to the right
+            plane.style.left = '110%'; 
+            
+            // Start the other animations after the plane flies off
+            setTimeout(function () {
+                // Reset plane size and position for animation
+                plane.style.transform = 'translate(-50%, -50%) scale(1)';
+                plane.style.left = '-411.5px'; // Start off-screen from the left
+
+                // Start CloudRow1 and CloudRow3 animations
+                cloudRow1.style.opacity = '1';
+                cloudRow1.style.animationPlayState = 'running';
+                cloudRow3.style.animationPlayState = 'running';
+
+                // Fly plane in from the left
+                plane.style.transition = 'left 5s ease-in-out';
+                plane.style.left = '50%'; // Move to center
+                plane.style.transform = 'translate(-50%, -50%)';
+
+                // Start CloudRow2 animations
+                cloudRow2.style.opacity = '1';
+                cloudRow2.style.animationPlayState = 'running';
+
+                // Start text animations
+                text.style.animationPlayState = 'running';
+            }, 2000); // Delay 2 seconds (matching the plane fly-off duration)
+        });
+
+        // Pause the cloud animations and text animations until triggered
+        cloudRow1.style.animationPlayState = 'paused';
+        cloudRow3.style.animationPlayState = 'paused';
+        cloudRow2.style.animationPlayState = 'paused';
+        text.style.animationPlayState = 'paused';
+    </script>
 
 </body>
 </html>
