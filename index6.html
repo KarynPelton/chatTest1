@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1Cloud and Airplane Animation</title>
+    <title>2Cloud and Airplane Animation</title>
     <style>
         body, html {
             margin: 0;
@@ -57,7 +57,7 @@
             height: 384px; /* Original height */
             top: 50%; /* Start in the middle vertically */
             left: -20%; /* Bleed off the left-hand side */
-            transform: translateY(-50%) scale(2); /* 200% larger */
+            transform: translateY(-50%) scale(4); /* 200% larger */
             z-index: 3;
             background-image: url('plane.png');
             background-size: cover;
@@ -107,7 +107,7 @@
         /* Fly airplane from left to right again */
         @keyframes flyIn {
             0% {
-                left: -411.5px; /* Start off-screen from the left */
+                left: 411.5px; /* Start off-screen from the left */
             }
             100% {
                 left: 50%; /* Stop in the middle */
