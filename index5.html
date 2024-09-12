@@ -69,8 +69,10 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Arial Black', sans-serif;
-            color: darkgray;
-            font-size: 200pt;
+            color: #333333;
+            font-size: 130pt; /* Initial max size */
+            white-space: nowrap; /* Force text to stay on one line */
+            overflow: visible; /* Allow overflow if text is too large */
             opacity: 0; /* Initially hidden */
             animation: fadeInText 2s ease-in 10s forwards, shrinkText 2s ease-in 12s forwards;
             z-index: 5; /* On top of everything */
@@ -149,12 +151,12 @@
         /* Shrink the text and move it to the top third */
         @keyframes shrinkText {
             0% {
-                font-size: 200pt;
+                font-size: 130pt;
                 bottom: 0;
                 transform: translateX(-50%);
             }
             100% {
-                font-size: 20pt;
+                font-size: 40pt; /* Final size of 40pt */
                 bottom: 66%; /* Top third of the screen */
                 transform: translateX(-50%);
             }
