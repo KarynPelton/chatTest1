@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KPel</title>
+    <title>1Cloud and Airplane Animation</title>
     <style>
         body, html {
             margin: 0;
@@ -25,6 +25,14 @@
             background-size: contain;
             background-repeat: repeat-x;
             opacity: 0; /* Initially hidden for non-active layers */
+        }
+
+        /* CloudRow1 - top layer (will be animated after the click) */
+        .cloud-row1 {
+            z-index: 3;
+            background-image: url('CloudRow1.png');
+            opacity: 0; /* Hidden on the initial screen */
+            animation: moveClouds1 20s linear infinite paused;
         }
 
         /* CloudRow2 - middle layer */
@@ -126,6 +134,16 @@
             }
         }
 
+        /* Animation for CloudRow1 */
+        @keyframes moveClouds1 {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
         /* Animation for CloudRow2 */
         @keyframes moveClouds2 {
             0% {
@@ -172,6 +190,7 @@
     </style>
 </head>
 <body>
+    <div class="clouds cloud-row1"></div>
     <div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
     
@@ -186,6 +205,7 @@
     <script>
         const plane = document.getElementById('plane');
         const clickText = document.getElementById('click-text');
+        const cloudRow1 = document.querySelector('.cloud-row1');
         const cloudRow3 = document.querySelector('.cloud-row3');
         const cloudRow2 = document.querySelector('.cloud-row2');
         const text = document.querySelector('.fade-text');
@@ -204,7 +224,9 @@
                 plane.style.transform = 'translate(-50%, -50%) scale(1)';
                 plane.style.left = '-411.5px'; // Start off-screen from the left
 
-                // Start CloudRow3 animation
+                // Start CloudRow1 and CloudRow3 animations
+                cloudRow1.style.opacity = '1';
+                cloudRow1.style.animationPlayState = 'running';
                 cloudRow3.style.animationPlayState = 'running';
 
                 // Fly plane in from the left
@@ -212,7 +234,7 @@
                 plane.style.left = '50%'; // Move to center
                 plane.style.transform = 'translate(-50%, -50%)';
 
-                // Start cloud animations
+                // Start CloudRow2 animations
                 cloudRow2.style.opacity = '1';
                 cloudRow2.style.animationPlayState = 'running';
 
@@ -222,6 +244,7 @@
         });
 
         // Pause the cloud animations and text animations until triggered
+        cloudRow1.style.animationPlayState = 'paused';
         cloudRow3.style.animationPlayState = 'paused';
         cloudRow2.style.animationPlayState = 'paused';
         text.style.animationPlayState = 'paused';
