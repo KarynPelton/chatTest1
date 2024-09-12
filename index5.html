@@ -62,22 +62,6 @@
             animation: flyIn 5s ease-out forwards, hover 3s ease-in-out infinite; /* Fly in first, then hover */
         }
 
-        /* Map marker */
-        .map-marker {
-            position: absolute;
-            width: 57px;
-            height: 88px;
-            top: 5%; /* Start near the top-right corner */
-            right: 5%; /* Start near the top-right corner */
-            transform: scale(0.5); /* Start a little smaller */
-            z-index: 4; /* Above clouds, but below the plane */
-            background-image: url('MapMarker.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            visibility: hidden; /* Initially hidden */
-            animation: flyInDiagonal 4s ease-out forwards 5s; /* Delayed by 5 seconds */
-        }
-
         /* Fly airplane from left to right */
         @keyframes flyIn {
             0% {
@@ -138,20 +122,6 @@
             }
         }
 
-        /* Fly the map marker diagonally into place */
-        @keyframes flyInDiagonal {
-            0% {
-                top: 5%; /* Start near the top-right corner */
-                right: 5%; /* Start near the top-right corner */
-                transform: scale(0.5); /* Smaller size initially */
-                visibility: visible; /* Make visible when animation starts */
-            }
-            100% {
-                top: 50%; /* End at the vertical center */
-                left: 45%; /* End just in front of the plane */
-                transform: scale(1); /* Full size */
-            }
-        }
     </style>
 </head>
 <body>
@@ -159,6 +129,5 @@
     <div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
     <div class="airplane"></div> <!-- Airplane element -->
-    <div class="map-marker"></div> <!-- Map marker element -->
 </body>
 </html>
