@@ -67,15 +67,15 @@
             position: absolute;
             width: 57px;
             height: 88px;
-            top: 20%; /* Starts 30% above its final position */
-            right: 30%; /* Starts farther away horizontally */
-            transform: scale(0.2); /* Start small */
+            top: 5%; /* Start near the top-right corner */
+            right: 5%; /* Start near the top-right corner */
+            transform: scale(0.5); /* Start a little smaller */
             z-index: 4; /* Above clouds, but below the plane */
             background-image: url('MapMarker.png');
             background-size: contain;
             background-repeat: no-repeat;
             visibility: hidden; /* Initially hidden */
-            animation: zoomIn 4s ease-out forwards 5s, stopPlane 0s linear 9s forwards; /* Delayed by 5 seconds */
+            animation: flyInDiagonal 4s ease-out forwards 5s; /* Delayed by 5 seconds */
         }
 
         /* Fly airplane from left to right */
@@ -138,31 +138,20 @@
             }
         }
 
-        /* Zoom and move the map marker diagonally into place */
-        @keyframes zoomIn {
+        /* Fly the map marker diagonally into place */
+        @keyframes flyInDiagonal {
             0% {
-                top: 20%; /* Starts 30% above its final position */
-                right: 30%; /* Farther to the right */
-                transform: scale(0.2); /* Start small */
-                visibility: visible; /* Make visible */
+                top: 5%; /* Start near the top-right corner */
+                right: 5%; /* Start near the top-right corner */
+                transform: scale(0.5); /* Smaller size initially */
+                visibility: visible; /* Make visible when animation starts */
             }
             100% {
                 top: 50%; /* End at the vertical center */
-                right: 5%; /* End 5% in front of the plane */
+                right: 5%; /* End just in front of the plane */
                 transform: scale(1); /* Full size */
             }
         }
-
-        /* Stop the plane hovering when the marker reaches its position */
-        @keyframes stopPlane {
-            0% {
-                animation: hover 3s ease-in-out infinite;
-            }
-            100% {
-                animation: none; /* Stop hovering */
-            }
-        }
-
     </style>
 </head>
 <body>
