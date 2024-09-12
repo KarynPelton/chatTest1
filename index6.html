@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud and Airplane Animation</title>
+    <title>KPel</title>
     <style>
         body, html {
             margin: 0;
@@ -27,14 +27,6 @@
             opacity: 0; /* Initially hidden for non-active layers */
         }
 
-        /* CloudRow1 - top layer (static initially, moves on click) */
-        .cloud-row1 {
-            z-index: 3;
-            background-image: url('CloudRow1.png');
-            opacity: 1; /* Visible on initial screen */
-            animation: moveClouds1 20s linear infinite paused; /* Paused until clicked */
-        }
-
         /* CloudRow2 - middle layer */
         .cloud-row2 {
             z-index: 2;
@@ -42,12 +34,12 @@
             animation: moveClouds2 26s linear infinite paused;
         }
 
-        /* CloudRow3 - bottom layer */
+        /* CloudRow3 - bottom layer, visible initially */
         .cloud-row3 {
             z-index: 0;
             background-image: url('CloudRow3.png');
-            opacity: 1;
-            animation: moveClouds3 33.8s linear infinite paused;
+            opacity: 1; /* Visible on initial screen */
+            animation: moveClouds3 33.8s linear infinite paused; /* Paused until clicked */
         }
 
         /* Airplane - initially 200% larger and bleeds off left side */
@@ -107,7 +99,7 @@
         /* Fly airplane from left to right again */
         @keyframes flyIn {
             0% {
-                left: -411.5px; /* Start off-screen */
+                left: -411.5px; /* Start off-screen from the left */
             }
             100% {
                 left: 50%; /* Stop in the middle */
@@ -131,16 +123,6 @@
             }
             100% {
                 transform: translate(-50%, -50%); /* Return to center */
-            }
-        }
-
-        /* Animation for CloudRow1 */
-        @keyframes moveClouds1 {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
             }
         }
 
@@ -190,7 +172,6 @@
     </style>
 </head>
 <body>
-    <div class="clouds cloud-row1"></div>
     <div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
     
@@ -205,7 +186,7 @@
     <script>
         const plane = document.getElementById('plane');
         const clickText = document.getElementById('click-text');
-        const cloudRow1 = document.querySelector('.cloud-row1');
+        const cloudRow3 = document.querySelector('.cloud-row3');
         const cloudRow2 = document.querySelector('.cloud-row2');
         const text = document.querySelector('.fade-text');
 
@@ -221,12 +202,12 @@
             setTimeout(function () {
                 // Reset plane size and position for animation
                 plane.style.transform = 'translate(-50%, -50%) scale(1)';
-                plane.style.left = '-411.5px'; // Start off-screen
+                plane.style.left = '-411.5px'; // Start off-screen from the left
 
-                // Start CloudRow1 animation
-                cloudRow1.style.animationPlayState = 'running';
+                // Start CloudRow3 animation
+                cloudRow3.style.animationPlayState = 'running';
 
-                // Fly plane in
+                // Fly plane in from the left
                 plane.style.transition = 'left 5s ease-in-out';
                 plane.style.left = '50%'; // Move to center
                 plane.style.transform = 'translate(-50%, -50%)';
@@ -241,7 +222,7 @@
         });
 
         // Pause the cloud animations and text animations until triggered
-        cloudRow1.style.animationPlayState = 'paused';
+        cloudRow3.style.animationPlayState = 'paused';
         cloudRow2.style.animationPlayState = 'paused';
         text.style.animationPlayState = 'paused';
     </script>
