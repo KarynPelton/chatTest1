@@ -62,6 +62,20 @@
             animation: flyIn 5s ease-out forwards, hover 3s ease-in-out infinite; /* Fly in first, then hover */
         }
 
+        /* Text Styling */
+        .fade-text {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Arial Black', sans-serif;
+            color: darkgray;
+            font-size: 200pt;
+            opacity: 0; /* Initially hidden */
+            animation: fadeInText 2s ease-in 10s forwards, shrinkText 2s ease-in 12s forwards;
+            z-index: 5; /* On top of everything */
+        }
+
         /* Fly airplane from left to right */
         @keyframes flyIn {
             0% {
@@ -122,6 +136,30 @@
             }
         }
 
+        /* Fade in the text */
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Shrink the text and move it to the top third */
+        @keyframes shrinkText {
+            0% {
+                font-size: 200pt;
+                bottom: 0;
+                transform: translateX(-50%);
+            }
+            100% {
+                font-size: 20pt;
+                bottom: 66%; /* Top third of the screen */
+                transform: translateX(-50%);
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -129,5 +167,9 @@
     <div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
     <div class="airplane"></div> <!-- Airplane element -->
+
+    <!-- Text element -->
+    <div class="fade-text">Why Travel Insurance from Ingle?</div>
+
 </body>
 </html>
