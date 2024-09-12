@@ -22,18 +22,25 @@
             background-repeat: repeat-x;
         }
 
-        /* CloudRow1 - moves at a moderate pace */
+        /* CloudRow1 - moves at a moderate pace (foreground) */
         .cloud-row1 {
-            z-index: 1; /* Ensure it's the top layer */
+            z-index: 2; /* Top layer */
             background-image: url('CloudRow1.png');
             animation: moveClouds1 20s linear infinite; /* Moderate speed */
         }
 
-        /* CloudRow2 - moves 30% slower and is behind CloudRow1 */
+        /* CloudRow2 - moves 30% slower than CloudRow1 (middle layer) */
         .cloud-row2 {
-            z-index: 0; /* Ensure it's the bottom layer */
+            z-index: 1; /* Middle layer */
             background-image: url('CloudRow2.png');
             animation: moveClouds2 26s linear infinite; /* 30% slower */
+        }
+
+        /* CloudRow3 - moves 30% slower than CloudRow2 (background layer) */
+        .cloud-row3 {
+            z-index: 0; /* Bottom layer */
+            background-image: url('CloudRow3.png');
+            animation: moveClouds3 33.8s linear infinite; /* 30% slower than row 2 */
         }
 
         /* Animation for CloudRow1 */
@@ -55,10 +62,21 @@
                 transform: translateX(-50%); /* Move left by 50% of the total width */
             }
         }
+
+        /* Animation for CloudRow3 */
+        @keyframes moveClouds3 {
+            0% {
+                transform: translateX(0); /* Start at the right */
+            }
+            100% {
+                transform: translateX(-50%); /* Move left by 50% of the total width */
+            }
+        }
     </style>
 </head>
 <body>
     <div class="clouds cloud-row1"></div>
     <div class="clouds cloud-row2"></div>
+    <div class="clouds cloud-row3"></div>
 </body>
 </html>
