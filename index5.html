@@ -67,14 +67,14 @@
             position: absolute;
             width: 57px;
             height: 88px;
-            top: 50%; /* Vertically centered */
-            right: -57px; /* Start off the screen to the right */
-            transform: translateY(-50%);
+            top: 20%; /* Starts 30% above its final position */
+            right: 5%; /* Stop 5% in front of the plane */
+            transform: scale(0.2); /* Start small */
             z-index: 4; /* Above clouds, but below the plane */
             background-image: url('MapMarker.png');
             background-size: contain;
             background-repeat: no-repeat;
-            animation: slideIn 4s ease-out forwards 10s, stopPlane 0s linear 14s forwards; /* Wait 5 seconds before sliding in */
+            animation: zoomIn 4s ease-out forwards 10s, stopPlane 0s linear 14s forwards; /* Wait 5 seconds before sliding in */
         }
 
         /* Fly airplane from left to right */
@@ -137,13 +137,15 @@
             }
         }
 
-        /* Slide the map marker in from the right */
-        @keyframes slideIn {
+        /* Zoom and move the map marker into position */
+        @keyframes zoomIn {
             0% {
-                right: -57px; /* Start off-screen */
+                top: 20%; /* 30% above final position */
+                transform: scale(0.2); /* Start small */
             }
             100% {
-                right: 20%; /* Stop 10% in front of the plane */
+                top: 50%; /* End at the vertical center */
+                transform: scale(1); /* Full size */
             }
         }
 
