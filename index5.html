@@ -13,28 +13,73 @@
             overflow: hidden;
         }
 
-        .clouds {
+        /* Common cloud row style */
+        .cloud-row {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('CloudRow1.png') repeat-x; /* Repeat the image horizontally */
+            width: 200%; /* 200% so the images repeat */
+            height: 2240px; /* Height of each image */
             background-size: contain;
-            animation: moveClouds 30s linear infinite; /* Infinite scroll animation */
+            background-repeat: repeat-x;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
         }
 
-        @keyframes moveClouds {
+        /* Bottom row - moves quickly */
+        .cloud-row1 {
+            top: 50%; /* Adjust as needed */
+            background-image: url('CloudRow1.png');
+            animation: moveClouds1 10s linear infinite; /* Fast speed */
+        }
+
+        /* Middle row - moves at a moderate speed */
+        .cloud-row2 {
+            top: 25%; /* Adjust as needed */
+            background-image: url('CloudRow2.png');
+            animation: moveClouds2 20s linear infinite; /* Moderate speed */
+        }
+
+        /* Top row - moves slowly */
+        .cloud-row3 {
+            top: 0; /* Adjust as needed */
+            background-image: url('CloudRow3.png');
+            animation: moveClouds3 40s linear infinite; /* Slow speed */
+        }
+
+        /* Animation for bottom row */
+        @keyframes moveClouds1 {
             0% {
-                transform: translateX(0); /* Starting position */
+                transform: translateX(0); /* Start at the right */
             }
             100% {
-                transform: translateX(-3584px); /* Moves the image to the left by its width */
+                transform: translateX(-50%); /* Move left by 50% of the total width */
             }
         }
+
+        /* Animation for middle row */
+        @keyframes moveClouds2 {
+            0% {
+                transform: translateX(0); /* Start at the right */
+            }
+            100% {
+                transform: translateX(-50%); /* Move left by 50% of the total width */
+            }
+        }
+
+        /* Animation for top row */
+        @keyframes moveClouds3 {
+            0% {
+                transform: translateX(0); /* Start at the right */
+            }
+            100% {
+                transform: translateX(-50%); /* Move left by 50% of the total width */
+            }
+        }
+
     </style>
 </head>
 <body>
-    <div class="clouds"></div>
+    <div class="cloud-row cloud-row1"></div>
+    <div class="cloud-row cloud-row2"></div>
+    <div class="cloud-row cloud-row3"></div>
 </body>
 </html>
