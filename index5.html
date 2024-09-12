@@ -53,8 +53,8 @@
             width: 411.5px; /* 50% of 823px */
             height: 192px; /* 50% of 384px */
             top: 50%; /* Start from middle of the screen vertically */
-            left: -411.5px; /* Start outside of the screen, adjusting based on new width */
-            transform: translateY(-50%);
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Center the plane */
             z-index: 3; /* On top of clouds */
             background-image: url('plane.png');
             background-size: cover; /* Ensure image fills the space */
@@ -148,7 +148,7 @@
             }
             100% {
                 top: 50%; /* End at the vertical center */
-                right: 5%; /* End just in front of the plane */
+                left: 45%; /* End just in front of the plane */
                 transform: scale(1); /* Full size */
             }
         }
