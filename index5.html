@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            background-color: #0077b6; /* Medium blue background */
+            background-color: #0fa5cb; /* Medium blue background */
             overflow: hidden;
         }
 
@@ -56,6 +56,21 @@
             background-size: cover; /* Ensure image fills the space */
             background-repeat: no-repeat;
             animation: flyIn 5s ease-out forwards, hover 3s ease-in-out infinite; /* Fly in first, then hover */
+        }
+
+        /* Map marker */
+        .map-marker {
+            position: absolute;
+            width: 57px;
+            height: 88px;
+            top: 50%; /* Vertically centered */
+            right: -57px; /* Start off the screen to the right */
+            transform: translateY(-50%);
+            z-index: 4; /* Above clouds, but below the plane */
+            background-image: url('MapMarker.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: slideIn 4s ease-out forwards, stopPlane 0s linear 4s forwards; /* Slide in and stop plane */
         }
 
         /* Fly airplane from left to right */
@@ -117,6 +132,27 @@
                 transform: translateX(-50%); /* Move left by 50% of the total width */
             }
         }
+
+        /* Slide the map marker in from the right */
+        @keyframes slideIn {
+            0% {
+                right: -57px; /* Start off-screen */
+            }
+            100% {
+                right: 20%; /* Stop 10% in front of the plane */
+            }
+        }
+
+        /* Stop the plane hovering when the marker reaches its position */
+        @keyframes stopPlane {
+            0% {
+                animation: hover 3s ease-in-out infinite;
+            }
+            100% {
+                animation: none; /* Stop hovering */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -124,5 +160,6 @@
     <div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
     <div class="airplane"></div> <!-- Airplane element -->
+    <div class="map-marker"></div> <!-- Map marker element -->
 </body>
 </html>
