@@ -10,7 +10,7 @@
             padding: 0;
             height: 100%;
             background: linear-gradient(to bottom, 
-                #FFD700 0%,  /* Yellow at the top */
+                #FF9900 0%,  /* Orange at the top */
                 #FFCF33 20%,  /* Lighter yellow transition */
                 #00A1D6 50%,  /* Medium blue transition */
                 #000080 100%); /* Dark blue at the bottom */
@@ -51,8 +51,8 @@
         /* Airplane - initially 200% larger and bleeds off left side */
         .airplane {
             position: absolute;
-            width: 823px; /* Original width, will be scaled up */
-            height: 384px; /* Original height, will be scaled up */
+            width: 823px; /* Original width */
+            height: 384px; /* Original height */
             top: 50%; /* Start in the middle vertically */
             left: -20%; /* Bleed off the left-hand side */
             transform: translateY(-50%) scale(2); /* 200% larger */
@@ -180,7 +180,7 @@
                 transform: translateX(-50%);
             }
             100% {
-                font-size: 25pt;
+                font-size: 40pt;
                 bottom: 66%;
                 transform: translateX(-50%);
             }
@@ -189,7 +189,7 @@
 </head>
 <body>
     <div class="clouds cloud-row1"></div>
-    <div class="clouds cloud-row2"></div>
+    <<div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
     
     <div class="airplane" id="plane"></div> <!-- Airplane element -->
