@@ -13,28 +13,52 @@
             overflow: hidden;
         }
 
+        /* Common cloud row style */
         .clouds {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 200%; /* Double the width to ensure seamless scrolling */
-            height: 100%; /* Adjust to fit the height of the image */
-            background: url('CloudRow1.png') repeat-x; /* Repeat the image horizontally */
-            background-size: contain; /* Ensures the image fits within the container */
-            animation: moveClouds 20s linear infinite; /* Animate clouds to scroll left */
+            height: 100%; /* Each cloud layer covers the full height */
+            background-size: contain;
+            background-repeat: repeat-x;
         }
 
-        @keyframes moveClouds {
+        /* CloudRow1 - moves at a moderate pace */
+        .cloud-row1 {
+            z-index: 1; /* Ensure it's the top layer */
+            background-image: url('CloudRow1.png');
+            animation: moveClouds1 20s linear infinite; /* Moderate speed */
+        }
+
+        /* CloudRow2 - moves 30% slower and is behind CloudRow1 */
+        .cloud-row2 {
+            z-index: 0; /* Ensure it's the bottom layer */
+            background-image: url('CloudRow2.png');
+            animation: moveClouds2 26s linear infinite; /* 30% slower */
+        }
+
+        /* Animation for CloudRow1 */
+        @keyframes moveClouds1 {
             0% {
-                transform: translateX(0); /* Start from the right */
+                transform: translateX(0); /* Start at the right */
             }
             100% {
-                transform: translateX(-50%); /* Move to the left by half of its width (50% of 200%) */
+                transform: translateX(-50%); /* Move left by 50% of the total width */
+            }
+        }
+
+        /* Animation for CloudRow2 */
+        @keyframes moveClouds2 {
+            0% {
+                transform: translateX(0); /* Start at the right */
+            }
+            100% {
+                transform: translateX(-50%); /* Move left by 50% of the total width */
             }
         }
     </style>
 </head>
 <body>
-    <div class="clouds"></div>
+    <div class="clouds cloud-row1"></div>
+    <div class="clouds cloud-row2"></div>
 </body>
 </html>
