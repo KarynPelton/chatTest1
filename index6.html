@@ -24,28 +24,30 @@
             height: 100%; /* Each cloud layer covers the full height */
             background-size: contain;
             background-repeat: repeat-x;
-            opacity: 0; /* Initially hidden */
+            opacity: 0; /* Initially hidden for non-active layers */
         }
 
-        /* CloudRow1 - top layer */
+        /* CloudRow1 - top layer (static initially, moves on click) */
         .cloud-row1 {
             z-index: 3;
             background-image: url('CloudRow1.png');
-            animation: moveClouds1 20s linear infinite;
+            opacity: 1; /* Visible on initial screen */
+            animation: moveClouds1 20s linear infinite paused; /* Paused until clicked */
         }
 
         /* CloudRow2 - middle layer */
         .cloud-row2 {
             z-index: 2;
             background-image: url('CloudRow2.png');
-            animation: moveClouds2 26s linear infinite;
+            animation: moveClouds2 26s linear infinite paused;
         }
 
-        /* CloudRow3 - bottom layer, visible initially */
+        /* CloudRow3 - bottom layer */
         .cloud-row3 {
             z-index: 0;
             background-image: url('CloudRow3.png');
-            opacity: 1; /* Visible at the start */
+            opacity: 1;
+            animation: moveClouds3 33.8s linear infinite paused;
         }
 
         /* Airplane - initially 200% larger and bleeds off left side */
@@ -189,7 +191,7 @@
 </head>
 <body>
     <div class="clouds cloud-row1"></div>
-    <<div class="clouds cloud-row2"></div>
+    <div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
     
     <div class="airplane" id="plane"></div> <!-- Airplane element -->
@@ -221,15 +223,16 @@
                 plane.style.transform = 'translate(-50%, -50%) scale(1)';
                 plane.style.left = '-411.5px'; // Start off-screen
 
+                // Start CloudRow1 animation
+                cloudRow1.style.animationPlayState = 'running';
+
                 // Fly plane in
                 plane.style.transition = 'left 5s ease-in-out';
                 plane.style.left = '50%'; // Move to center
                 plane.style.transform = 'translate(-50%, -50%)';
 
                 // Start cloud animations
-                cloudRow1.style.opacity = '1';
                 cloudRow2.style.opacity = '1';
-                cloudRow1.style.animationPlayState = 'running';
                 cloudRow2.style.animationPlayState = 'running';
 
                 // Start text animations
