@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2Cloud and Airplane Animation</title>
+    <title>Final Sept 12</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            background: linear-gradient(to bottom, 
+            background: linear-gradient(to bottom,
                 #FF9900 0%,  /* Orange at the top */
                 #FFCF33 20%,  /* Lighter yellow transition */
                 #00A1D6 50%,  /* Medium blue transition */
@@ -31,15 +31,14 @@
         .cloud-row1 {
             z-index: 3;
             background-image: url('CloudRow1.png');
-            opacity: 0; /* Hidden on the initial screen */
-            animation: moveClouds1 20s linear infinite paused;
+            animation: moveClouds1 20s linear infinite paused, fadeIn 5s ease-in forwards;
         }
 
         /* CloudRow2 - middle layer */
         .cloud-row2 {
             z-index: 2;
             background-image: url('CloudRow2.png');
-            animation: moveClouds2 26s linear infinite paused;
+            animation: moveClouds2 26s linear infinite paused, fadeIn 5s ease-in forwards;
         }
 
         /* CloudRow3 - bottom layer, visible initially */
@@ -47,23 +46,23 @@
             z-index: 0;
             background-image: url('CloudRow3.png');
             opacity: 1; /* Visible on initial screen */
-            animation: moveClouds3 33.8s linear infinite paused; /* Paused until clicked */
+            animation: moveClouds3 33.8s linear infinite paused;
         }
 
-        /* Airplane - initially 200% larger and bleeds off left side */
+        /* Airplane - initially 3.5 times larger */
         .airplane {
             position: absolute;
             width: 823px; /* Original width */
             height: 384px; /* Original height */
-            top: 50%; /* Start in the middle vertically */
-            left: -20%; /* Bleed off the left-hand side */
-            transform: translateY(-50%) scale(4); /* 200% larger */
+            top: 50%; /* Vertically centered */
+            left: -20%; /* Initially positioned slightly off left side */
+            transform: translateY(-50%) scale(3.5); /* Scale plane 3.5 times */
             z-index: 3;
             background-image: url('plane.png');
             background-size: cover;
             background-repeat: no-repeat;
             cursor: pointer;
-            transition: left 2s ease-out; /* For smooth flying off screen */
+            transition: left 3s ease-out; /* Smooth transition for flying off-screen */
         }
 
         /* Click to Start text */
@@ -86,7 +85,7 @@
             transform: translateX(-50%);
             font-family: 'Arial Black', sans-serif;
             color: #333333;
-            font-size: 130pt;
+            font-size: 180pt; /* Start at 180pt */
             white-space: nowrap;
             overflow: visible;
             opacity: 0; /* Initially hidden */
@@ -97,40 +96,32 @@
         /* Fly airplane to the right */
         @keyframes flyOffRight {
             0% {
-                left: -20%; /* Starts 200% larger, partly offscreen */
+                left: -20%; /* Starts scaled 3.5 times */
             }
             100% {
-                left: 110%; /* Move off the screen to the right */
+                left: 150%; /* Fly completely off the screen */
             }
         }
 
-        /* Fly airplane from left to right again */
-        @keyframes flyIn {
+        /* Fade in clouds */
+        @keyframes fadeIn {
             0% {
-                left: 411.5px; /* Start off-screen from the left */
+                opacity: 0;
             }
             100% {
-                left: 50%; /* Stop in the middle */
-                transform: translate(-50%, -50%); /* Center */
+                opacity: 1;
             }
         }
 
-        /* More pronounced gentle hovering effect */
-        @keyframes hover {
+        /* Fly airplane in from the left */
+        @keyframes flyInFromLeft {
             0% {
-                transform: translate(-50%, -50%);
-            }
-            25% {
-                transform: translate(-46%, -54%); /* More pronounced up and left */
-            }
-            50% {
-                transform: translate(-50%, -46%); /* More pronounced down */
-            }
-            75% {
-                transform: translate(-54%, -50%); /* More pronounced down and right */
+                left: -150%; /* Start completely off-screen to the left */
+                transform: translateY(-50%) scale(1); /* Normal size */
             }
             100% {
-                transform: translate(-50%, -50%); /* Return to center */
+                left: 50%; /* Fly in and stop at the center */
+                transform: translate(-50%, -50%) scale(1); /* Normal size */
             }
         }
 
@@ -177,12 +168,12 @@
         /* Shrink the text and move it to the top third */
         @keyframes shrinkText {
             0% {
-                font-size: 130pt;
+                font-size: 180pt; /* Start at 180pt */
                 bottom: 0;
                 transform: translateX(-50%);
             }
             100% {
-                font-size: 40pt;
+                font-size: 30pt; /* Shrink to 30pt */
                 bottom: 66%;
                 transform: translateX(-50%);
             }
@@ -193,7 +184,7 @@
     <div class="clouds cloud-row1"></div>
     <div class="clouds cloud-row2"></div>
     <div class="clouds cloud-row3"></div>
-    
+
     <div class="airplane" id="plane"></div> <!-- Airplane element -->
 
     <!-- Click to Start text -->
@@ -216,31 +207,35 @@
             clickText.style.display = 'none';
 
             // Fly plane off to the right
-            plane.style.left = '110%'; 
-            
+            plane.style.transition = 'left 3s ease-out';
+            plane.style.left = '150%';
+
             // Start the other animations after the plane flies off
             setTimeout(function () {
-                // Reset plane size and position for animation
-                plane.style.transform = 'translate(-50%, -50%) scale(1)';
-                plane.style.left = '-411.5px'; // Start off-screen from the left
-
                 // Start CloudRow1 and CloudRow3 animations
-                cloudRow1.style.opacity = '1';
                 cloudRow1.style.animationPlayState = 'running';
                 cloudRow3.style.animationPlayState = 'running';
 
-                // Fly plane in from the left
-                plane.style.transition = 'left 5s ease-in-out';
-                plane.style.left = '50%'; // Move to center
-                plane.style.transform = 'translate(-50%, -50%)';
-
                 // Start CloudRow2 animations
-                cloudRow2.style.opacity = '1';
                 cloudRow2.style.animationPlayState = 'running';
 
                 // Start text animations
                 text.style.animationPlayState = 'running';
-            }, 2000); // Delay 2 seconds (matching the plane fly-off duration)
+
+                // Reintroduce the plane from the left
+                setTimeout(function() {
+                    plane.style.transition = 'none'; // Remove transition temporarily
+                    plane.style.left = '-150%'; // Position plane off-screen to the left
+                    plane.style.transform = 'translateY(-50%) scale(1)'; // Reset size
+
+                    // Fly plane back in from the left to center
+                    setTimeout(function() {
+                        plane.style.transition = 'left 5s ease-out'; // Smooth transition
+                        plane.style.left = '50%'; // Fly to the center
+                        plane.style.transform = 'translate(-50%, -50%) scale(1)'; // Normal size at center
+                    }, 500); // Small delay to ensure smooth re-entry
+                }, 5000); // Delay before reintroducing plane from left
+            }, 3000); // Delay 3 seconds (matching the plane fly-off duration)
         });
 
         // Pause the cloud animations and text animations until triggered
