@@ -9,7 +9,13 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            background-color: #0fa5cb; /* Medium blue background */
+            background: linear-gradient(to bottom, 
+                #FFD700 0%, /* Yellow */
+                #FFD700 10%, /* Yellow up to 10% */
+                #0077b6 11%, /* Medium blue starts at 11% */
+                #0077b6 60%, /* Medium blue covers up to 60% */
+                #000080 61%, /* Dark blue starts just after 60% */
+                #000080 100%); /* Dark blue covers the bottom half */
             overflow: hidden;
         }
 
@@ -70,7 +76,7 @@
             background-image: url('MapMarker.png');
             background-size: contain;
             background-repeat: no-repeat;
-            animation: slideIn 4s ease-out forwards, stopPlane 0s linear 4s forwards; /* Slide in and stop plane */
+            animation: slideIn 4s ease-out forwards 10s, stopPlane 0s linear 14s forwards; /* Wait 5 seconds before sliding in */
         }
 
         /* Fly airplane from left to right */
