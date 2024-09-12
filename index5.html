@@ -28,21 +28,21 @@
 
         /* CloudRow1 - moves at a moderate pace (foreground) */
         .cloud-row1 {
-            z-index: 2; /* Top layer */
+            z-index: 3; /* Top layer, in front of everything */
             background-image: url('CloudRow1.png');
             animation: moveClouds1 20s linear infinite; /* Moderate speed */
         }
 
         /* CloudRow2 - moves 30% slower than CloudRow1 (middle layer) */
         .cloud-row2 {
-            z-index: 1; /* Middle layer */
+            z-index: 2; /* Second layer, in front of text */
             background-image: url('CloudRow2.png');
             animation: moveClouds2 26s linear infinite; /* 30% slower */
         }
 
-        /* CloudRow3 - moves 30% slower than CloudRow2 (background layer) */
+        /* CloudRow3 - moves 30% slower than CloudRow2 (bottom layer) */
         .cloud-row3 {
-            z-index: 0; /* Bottom layer */
+            z-index: 0; /* Bottom layer, behind text */
             background-image: url('CloudRow3.png');
             animation: moveClouds3 33.8s linear infinite; /* 30% slower than row 2 */
         }
@@ -69,13 +69,13 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Arial Black', sans-serif;
-            color: #333333;
+            color: #333333; /* Updated text color */
             font-size: 130pt; /* Initial max size */
             white-space: nowrap; /* Force text to stay on one line */
             overflow: visible; /* Allow overflow if text is too large */
             opacity: 0; /* Initially hidden */
+            z-index: 1; /* Between CloudRow3 (z-index: 0) and CloudRow2 (z-index: 2) */
             animation: fadeInText 2s ease-in 10s forwards, shrinkText 2s ease-in 12s forwards;
-            z-index: 5; /* On top of everything */
         }
 
         /* Fly airplane from left to right */
