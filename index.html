@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text from JSON Example</title>
+    <title>Travel Insurance</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,6 +21,28 @@
             color: gray;
             font-size: 18px;
         }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 18px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f73;
+        }
     </style>
 </head>
 <body>
@@ -29,16 +51,31 @@
     <h1 id="title"></h1>
     <p id="subtitle"></p>
 
+    <!-- The question will be filled dynamically -->
+    <h1 id="question"></h1>
+
+    <!-- Grid of buttons -->
+    <div class="grid-container" id="buttonGrid"></div>
+
     <script>
         // Fetch data from config.json
         fetch('config.json')
             .then(response => response.json())
             .then(data => {
-                // Set the title and subtitle from JSON
+                // Set the title, subtitle, and question from JSON
                 document.getElementById('title').textContent = data.title;
                 document.getElementById('subtitle').textContent = data.subtitle;
+                document.getElementById('question').textContent = data.question;
+
+                // Create buttons and populate labels from JSON
+                const buttonGrid = document.getElementById('buttonGrid');
+                data.buttons.forEach(buttonLabel => {
+                    const button = document.createElement('button');
+                    button.textContent = buttonLabel;
+                    buttonGrid.appendChild(button);
+                });
             })
-            .catch(error => console.error('Error loading JSON:', error));
+            .catch(error => console.error('Error loading config:', error));
     </script>
 
 </body>
