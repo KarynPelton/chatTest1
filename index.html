@@ -31,21 +31,25 @@
         }
 
         button {
-            width: 200px; /* Fixed width */
-            height: 60px; /* Fixed height */
+            width: 200px;
+            height: 60px;
             font-size: 16px;
-            background-color: mediumblue;
             color: white;
+            background: linear-gradient(145deg, #0072bc, #005f99);
             border: none;
-            border-radius: 10px; /* Rounded edges */
+            border-radius: 12px;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(255, 255, 255, 0.1);
             cursor: pointer;
-            white-space: nowrap; /* Prevents text wrapping */
-            text-align: center;
-            padding: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            outline: none;
         }
 
         button:hover {
-            background-color: #005f73; /* Darker blue on hover */
+            background: linear-gradient(145deg, #005f99, #0072bc);
+            box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.4), -5px -5px 12px rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px); /* Move up slightly on hover */
         }
 
         #message {
