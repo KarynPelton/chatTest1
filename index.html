@@ -47,6 +47,12 @@
         button:hover {
             background-color: #005f73; /* Darker blue on hover */
         }
+
+        #message {
+            margin-top: 30px;
+            font-size: 20px;
+            color: mediumblue;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +67,9 @@
     <!-- Grid of buttons -->
     <div class="grid-container" id="buttonGrid"></div>
 
+    <!-- Message that will appear after selecting a button -->
+    <p id="message"></p>
+
     <script>
         // Fetch data from config.json
         fetch('config.json')
@@ -73,9 +82,14 @@
 
                 // Create buttons and populate labels from JSON
                 const buttonGrid = document.getElementById('buttonGrid');
+                const message = document.getElementById('message');
+                
                 data.buttons.forEach(buttonLabel => {
                     const button = document.createElement('button');
                     button.textContent = buttonLabel;
+                    button.addEventListener('click', () => {
+                        message.textContent = `Travel Insurance from Ingle is perfect for your ${buttonLabel} because you get 24/7 access to higher level health care.`;
+                    });
                     buttonGrid.appendChild(button);
                 });
             })
