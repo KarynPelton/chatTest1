@@ -12,7 +12,7 @@
             background-color: #f0f0f0;
         }
 
-        h1 {
+        h1, #message {
             color: mediumblue;
             font-weight: bold;
         }
@@ -54,8 +54,7 @@
 
         #message {
             margin-top: 30px;
-            font-size: 20px;
-            color: mediumblue;
+            font-size: 24px;
         }
     </style>
 </head>
@@ -72,7 +71,7 @@
     <div class="grid-container" id="buttonGrid"></div>
 
     <!-- Message that will appear after selecting a button -->
-    <p id="message"></p>
+    <h1 id="message"></h1>
 
     <script>
         // Fetch data from config.json
