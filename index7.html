@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Talk</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f6f9fc;
+            font-family: Arial, sans-serif;
+        }
+
+        #startButton {
+            background-color: #356eba;
+            color: white;
+            font-size: 14pt;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #startButton:hover {
+            background-color: #285495;
+        }
+
+        video {
+            display: none;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .main-box {
+            display: none;
+            width: 60%;
+            border: 15px solid #2d3d5c;
+            border-radius: 15px;
+            background: linear-gradient(to right, #b1bfcd, #f2f7fa, #b4c2d0);
+            padding: 20px;
+            position: relative;
+        }
+
+        .background-layer {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 20%;
+            background: url('Handshake.png') no-repeat left center;
+            background-size: contain;
+            z-index: 1;
+        }
+
+        .box-content {
+            display: flex;
+            position: relative;
+            z-index: 2; /* To place the text above the background */
+        }
+
+        .col1 {
+            width: 20%;
+        }
+
+        .col2 {
+            width: 50%;
+            text-align: left;
+        }
+
+        .col3 {
+            width: 30%;
+            text-align: right;
+        }
+
+        h2 {
+            font-size: 22pt;
+            color: #2d3d5c;
+            margin: 0 0 10px;
+        }
+
+        p {
+            font-size: 14pt;
+            color: #2d3d5c;
+            line-height: 1.5;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            background-color: #356eba;
+            color: white;
+            font-size: 12pt;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .buttons button:hover {
+            background-color: #285495;
+        }
+
+        .or-text {
+            font-size: 14pt;
+            color: #2d3d5c;
+            margin: 0 10px;
+        }
+
+        #logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .col3 img {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="startButton">Let's Talk, I can help</button>
+
+    <!-- Placeholder for the video -->
+    <video id="videoPlayer">
+        <source src="big_buck_bunny.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Main Box Content -->
+    <div class="main-box" id="mainBox">
+        <!-- Background Layer with Handshake image -->
+        <div class="background-layer" id="backgroundLayer"></div>
+
+        <div class="box-content" id="boxContent">
+            <div class="col1"></div>
+            <div class="col2" id="col2">
+                <h2 id="title">We Only Get Paid After You Get Paid</h2>
+                <p id="description">We take the risk of doing the 10-year tax review at no cost to you. After you receive your refund
+                from the government that we found for you, you pay us 33% of that amount.</p>
+                <div class="buttons" id="buttons">
+                    <span>Do you understand?</span>
+                    <button id="yesButton">Yes</button>
+                    <span class="or-text">or</span>
+                    <button id="noButton">No</button>
+                </div>
+            </div>
+            <div class="col3">
+                <img id="logo" src="Logo.svg" alt="Logo">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', function() {
+            const button = document.getElementById('startButton');
+            const video = document.getElementById('videoPlayer');
+            const mainBox = document.getElementById('mainBox');
+
+            // Hide the button
+            button.style.display = 'none';
+
+            // Show the video and play it
+            video.style.display = 'block';
+            video.play();
+
+            // Set a timer to stop the video and hide it after 10 seconds, then show the main box
+            setTimeout(function() {
+                video.pause(); // Pause the video
+                video.style.display = 'none'; // Hide the video
+                mainBox.style.display = 'block'; // Show the main box
+            }, 10000); // 10 seconds in milliseconds
+        });
+
+        // Event listener for Yes button
+        document.getElementById('yesButton').addEventListener('click', function() {
+            clearContent('Now What…', 'Within a week we will have completed your tax refund analysis and submission. We’ll notify you by email when this is complete.');
+        });
+
+        // Event listener for No button
+        document.getElementById('noButton').addEventListener('click', function() {
+            clearContent('You Said No…', 'You need to understand you owe us 33% when you get paid.');
+        });
+
+        // Function to clear the content and update it
+        function clearContent(newTitle, newDescription) {
+            const backgroundLayer = document.getElementById('backgroundLayer');
+            const title = document.getElementById('title');
+            const description = document.getElementById('description');
+            const buttons = document.getElementById('buttons');
+            const col1 = document.querySelector('.col1'); // Left column
+            const logo = document.getElementById('logo');
+
+            // Clear the existing content
+            backgroundLayer.style.display = 'none';  // Hide the handshake image
+            col1.style.display = 'none';  // Hide the first column
+            logo.style.display = 'none';  // Hide the logo
+            title.textContent = newTitle;  // Update the title
+            description.textContent = newDescription;  // Update the description
+            buttons.style.display = 'none';  // Hide the Yes/No buttons
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f6f9fc;
+        }
+
+        video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <video id="videoPlayer" src="big_buck_bunny.mp4" controls autoplay></video>
+
+    <script>
+        window.onload = function() {
+            const video = document.getElementById('videoPlayer');
+            video.play().catch(error => {
+                console.log('Autoplay prevented: ', error);
+                // Optionally, prompt the user to manually start the video
+            });
+        };
+    </script>
+</body>
+</html>
